@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Landmark, Check, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FundingArt } from "@/components/funding-art";
+import { FinancesContinuation } from "@/components/finances-continuation";
 
 type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete";
 const sampleCard = "5555555555554444";
@@ -26,6 +27,7 @@ export function PayPalFlow() {
   const [linkedNotice, setLinkedNotice] = useState(false);
   const [demoVerified, setDemoVerified] = useState(false);
   const [balanceCents, setBalanceCents] = useState(3071);
+  const [addedCents, setAddedCents] = useState<number | null>(null);
   const balance = (balanceCents / 100).toFixed(2);
   useEffect(() => {
     if (screen !== "confirmed") return;
@@ -39,7 +41,9 @@ export function PayPalFlow() {
     setScreen("complete");
   };
   const finishDemo = () => {
-    setBalanceCents(previous => previous + Math.round(Number(amount) * 100));
+    const cents = Math.round(Number(amount) * 100);
+    setBalanceCents(previous => previous + cents);
+    setAddedCents(cents);
     setScreen("finances");
   };
   const openLink = () => { setSheet(false); setCard(""); setScreen("link"); };
@@ -116,7 +120,7 @@ export function PayPalFlow() {
           <Button variant="paypal" onClick={openAmount}>Add Money</Button>
           <div className="pp-debit"><div className="pp-debit-heading"><PayPalMark/><strong>Debit Card</strong></div><PayPalMark colorful/><div className="pp-debit-bottom"><span>Use your balance anywhere.</span><div className="pp-mastercard"><i/><i/></div></div></div>
           <Button variant="yellow">Get a PayPal Debit Card</Button>
-          <div className="pp-tax"><strong>Get your federal tax<br/>refund up to 5 days early*</strong><p>Use PayPal Direct Deposit for</p></div>
+           <FinancesContinuation addedCents={addedCents}/>
         </>}
       </div>
       <footer className="pp-footer">{screen === "home" && <div className="pp-send-actions"><Button variant="yellow">Send</Button><Button variant="yellow">Request</Button></div>}<nav>{navigation.map(({label, icon: Icon}) => <Button key={label} variant="plain" className={(screen === "home" && label === "Home") || (screen === "finances" && label === "Finances") ? "pp-nav-active" : ""} onClick={() => { if(label === "Home") setScreen("home"); if(label === "Finances") setScreen("finances"); }}><Icon/><span>{label}</span></Button>)}</nav></footer>

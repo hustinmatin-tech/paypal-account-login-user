@@ -1,0 +1,2 @@
+- [ ] Extend Finances with the recorded direct-deposit panel, options, and demo activity.
+- [ ] Verify completion returns to the updated, scrollable Finances screen.
