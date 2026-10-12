@@ -253,3 +253,22 @@
 .pp-row-mastercard i { width: 22px; height: 22px; }
 .pp-row-mastercard i + i { margin-left: -8px; }
 @media (prefers-reduced-motion: reduce) { .pp-caret { animation: none; } }
+.pp-security-header { position: relative; height: 50px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; font-weight: 600; }
+.pp-security-header > button { position: absolute; left: 12px; }
+.pp-security-header svg { width: 20px; height: 20px; }
+.pp-security-content { padding: 28px 24px; flex: 1; overflow-y: auto; }
+.pp-security-content > .paypal-mark { display: block; margin: 0 auto 26px; }
+.pp-security-content h1, .pp-confirmation h1 { font-size: 24px; line-height: 30px; text-align: center; font-weight: 600; margin: 0; }
+.pp-security-intro { text-align: center; font-size: 15px; line-height: 21px; margin: 16px 0 40px; }
+.pp-text-option { display: flex; align-items: center; gap: 11px; font-size: 14px; }
+.pp-text-option input { width: 19px; height: 19px; margin: 0; accent-color: var(--primary); }
+.pp-demo-mobile { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0 30px; font-size: 14px; line-height: 21px; }
+.pp-demo-mobile > span:last-child { color: var(--muted-foreground); }
+.pp-security-consent { font-size: 14px; line-height: 21px; margin: 32px 0 27px; }
+.pp-confirmation { flex: 1; padding: 40px 20px 0; text-align: center; }
+.pp-confirmation-check { width: 114px; height: 114px; background: var(--pp-green); color: var(--primary-foreground); border-radius: 50%; display: grid; place-items: center; margin: 0 auto 44px; box-shadow: var(--pp-shadow); }
+.pp-confirmation-check svg { width: 72px; height: 72px; stroke-width: 4; }
+.pp-confirmation p { font-size: 13px; line-height: 20px; color: var(--muted-foreground); margin: 16px auto 0; max-width: 260px; }
+.pp-security-footer { text-align: center; flex-shrink: 0; padding: 20px 20px 50px; }
+.pp-security-footer > .paypal-mark { width: 20px; height: 24px; margin: 0 auto 55px; }
+.pp-security-footer > div { display: flex; flex-wrap: wrap; justify-content: center; gap: 13px; font-size: 12px; color: var(--muted-foreground); }

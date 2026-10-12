@@ -3,7 +3,7 @@ import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, 
 import { Button } from "@/components/ui/button";
 import { FundingArt } from "@/components/funding-art";
 
-type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary";
+type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed";
 const sampleCard = "5555555555554444";
 
 function PayPalMark({ colorful = false }: { colorful?: boolean }) {
@@ -59,7 +59,21 @@ export function PayPalFlow() {
 
   return <main className="pp-stage"><div className="pp-app">
     <div className="pp-demo-label">Demo · Sample card only · No real transactions</div>
-    {screen === "card-summary" ? <>
+    {screen === "security" || screen === "confirmed" ? <>
+      <header className="pp-security-header"><Button variant="plain" size="icon" aria-label="Close security check" onClick={() => setScreen("methods")}><X/></Button><span>PayPal</span></header>
+      {screen === "security" ? <section className="pp-security-content">
+        <PayPalMark/>
+        <h1>Quick security check</h1>
+        <p className="pp-security-intro">We just need some additional info to<br/>confirm it’s you.</p>
+        <label className="pp-text-option"><input type="radio" name="verification" checked readOnly/><span>Receive a text</span></label>
+        <div className="pp-demo-mobile"><span>Mobile</span><span>••• ••• 0100 (sample)</span></div>
+        <p className="pp-security-consent">By continuing, you confirm that you are authorized to use this phone number and agree to receive text messages to confirm your identity in this session. Carrier fees may apply.</p>
+        <Button variant="paypal" onClick={() => setScreen("confirmed")}>Next</Button>
+      </section> : <>
+        <section className="pp-confirmation" aria-live="polite"><div className="pp-confirmation-check" aria-hidden="true"><Check/></div><h1>Identity confirmed!</h1><p>Demo complete · No identity verification performed</p></section>
+        <footer className="pp-security-footer"><PayPalMark/><div><span>Contact Us</span><span>Privacy</span><span>Legal</span><span>Worldwide</span></div></footer>
+      </>}
+    </> : screen === "card-summary" ? <>
       <header className="pp-link-header"><Button variant="plain" size="icon" aria-label="Close" onClick={() => { setScreen("methods"); setSheet(!linked); }}><X/></Button><div><span>Mastercard</span><small>Visa or Mastercard only</small></div></header>
       <div className="pp-card-summary"><div className="pp-card-art pp-summary-art" aria-hidden="true"><div className="pp-mastercard"><i/><i/></div></div><div className="pp-summary-number">•••• •••• •••• 4444</div><div className="pp-summary-meta"><span>Expires 12/30</span><span>•••</span></div><div className="pp-billing-address"><div><small>Billing address</small><span>Sample address</span></div><ChevronRight/></div></div>
       <Button variant="paypal" className="pp-link-submit" onClick={linkSampleCard}>Link Card</Button>
@@ -93,7 +107,7 @@ export function PayPalFlow() {
       {screen === "methods" && method === "debit" && linked && <><div className="pp-bank-row"><div className="pp-mastercard pp-row-mastercard" aria-hidden="true"><i/><i/></div><div><strong>Mastercard</strong><span>Sample debit ••••4444</span></div><Button variant="plain" className="pp-change" onClick={() => setSheet(true)}>Change</Button></div><div className="pp-fee"><span>Fee:</span><span>No fees</span></div></>}
       </div>
       {screen === "amount" && <div className="pp-keyboard-area">{Number(amount) > 0 && <div className="pp-continue"><Button variant="paypal" aria-label="Continue" disabled={loading} onClick={() => chooseAmount(amount)}>{loading ? <span className="pp-spinner"/> : "Next"}</Button></div>}<div className="pp-keyboard">{[{n:"1",l:""},{n:"2",l:"ABC"},{n:"3",l:"DEF"},{n:"4",l:"GHI"},{n:"5",l:"JKL"},{n:"6",l:"MNO"},{n:"7",l:"PQRS"},{n:"8",l:"TUV"},{n:"9",l:"WXYZ"},{n:".",l:""},{n:"0",l:""},{n:"delete",l:""}].map(({n,l}) => <Button key={n} variant="keypad" className={n === "." || n === "delete" ? "pp-key-transparent" : ""} aria-label={n === "delete" ? "Delete digit" : n} onClick={() => enterKey(n)}>{n === "delete" ? <Delete/> : <><span>{n}</span>{l && <small>{l}</small>}</>}</Button>)}</div></div>}
-      {screen === "methods" && <div className="pp-method-footer">{method === "bank" || linked ? <><p className="pp-disclaimer">{method === "bank" ? "Transfers made after 7:00 PM ET or on weekends or holidays can take a little longer. All transactions are subject to review." : "Applies only to Visa or Mastercard debit cards. Transactions are subject to review. We may delay or decline a transaction if we identify an issue."}</p><Button variant="paypal" onClick={() => { /* Visual recreation only: never submit a payment. */ }}>Add ${Number(amount).toFixed(2)} Now</Button></> : <Button variant="plain" className="pp-choose-card" onClick={() => setSheet(true)}>Choose a debit card</Button>}</div>}
+      {screen === "methods" && <div className="pp-method-footer">{method === "bank" || linked ? <><p className="pp-disclaimer">{method === "bank" ? "Transfers made after 7:00 PM ET or on weekends or holidays can take a little longer. All transactions are subject to review." : "Applies only to Visa or Mastercard debit cards. Transactions are subject to review. We may delay or decline a transaction if we identify an issue."}</p><Button variant="paypal" onClick={() => { if (method === "debit" && linked) { setLinkedNotice(false); setScreen("security"); } }}>Add ${Number(amount).toFixed(2)} Now</Button></> : <Button variant="plain" className="pp-choose-card" onClick={() => setSheet(true)}>Choose a debit card</Button>}</div>}
       {sheet && <><div className="pp-overlay" onClick={() => setSheet(false)}/><section className="pp-sheet" role="dialog" aria-modal="true" aria-label="Choose a way to add funds"><header><h2>Choose a way to add funds</h2><Button variant="plain" size="icon" aria-label="Close" onClick={() => setSheet(false)}><X/></Button></header>{method === "bank" ? <><Button variant="plain" className="pp-sheet-bank" onClick={() => setSheet(false)}><BankLogo/><span><strong>DEMO BANK N.A.</strong><small>Checking ••••0000</small></span><Check/></Button><Button variant="plain" className="pp-link-card pp-link-bank"><span className="pp-plus"><Plus/></span><span>Link a bank account</span></Button></> : <Button variant="plain" className="pp-link-card" onClick={openLink}><span className="pp-plus"><Plus/></span><strong>Link an eligible debit card to<br/>add funds in seconds</strong></Button>}<Button variant="plain" className="pp-missing-methods">Don’t see all of your payment methods?</Button></section></>}
     </>}
     <div className={`pp-assistive ${screen === "amount" || screen === "link" ? "pp-assistive-keyboard" : ""}`} aria-hidden="true"><i/></div>
