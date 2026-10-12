@@ -323,18 +323,3 @@
 .pp-capital-logo { background: var(--primary); color: var(--primary-foreground); width: 44px; height: 28px; flex-shrink: 0; display: grid; place-items: center; font-size: 6px; font-style: italic; }.pp-bank-row > .pp-capital-logo { flex: 0 0 44px; display: grid; }
 .pp-destination-link { width: 100%; min-height: 79px; display: flex; justify-content: flex-start; gap: 15px; text-align: left; font-size: 15px; font-weight: 400; }.pp-destination-plus { width: 44px; height: 28px; background: var(--card); display: grid; place-items: center; flex-shrink: 0; }.pp-destination-plus svg { width: 16px; height: 16px; }
 .pp-destination-sheet .pp-missing-methods { font-size: 14px; margin-top: 13px; text-align: center; }.pp-destination-notice { font-size: 12px; line-height: 18px; text-align: center; margin: 16px 0 0; color: var(--primary); }
-.pp-destination-row > span:nth-child(2) { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.pp-destination-row > .pp-transfer-bank-art { flex: 0 0 44px; height: 28px; background: var(--pp-light-cyan); color: var(--pp-blue); display: grid; place-items: center; border-radius: 3px; }
-.pp-destination-check { width: 16px; height: 16px; color: var(--muted-foreground); }
-.pp-transfer-complete-header > button { left: auto; right: 12px; }
-.pp-transfer-complete { flex: 1; text-align: center; padding: 90px 20px 20px; }
-.pp-transfer-complete .pp-confirmation-check { width: 104px; height: 104px; margin-bottom: 32px; }
-.pp-transfer-complete h1 { font-size: 23px; line-height: 29px; font-weight: 500; margin: 0; }
-.pp-transfer-complete p { font-size: 12px; line-height: 18px; color: var(--muted-foreground); margin: 16px 0; }
-.pp-transfer-complete > button { width: 150px; height: 42px; background: var(--pp-blue); }
-.pp-transfer-alert { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(280px, calc(100% - 40px)); z-index: 8; background: var(--pp-assistive); color: var(--primary-foreground); border-radius: 8px; text-align: center; overflow: hidden; }
-.pp-transfer-alert h2 { font-size: 14px; margin: 18px 14px 7px; }
-.pp-transfer-alert p { font-size: 12px; line-height: 17px; margin: 0 16px 18px; }
-.pp-transfer-alert > div { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--pp-assistive-ring); }
-.pp-transfer-alert button { color: var(--pp-light-cyan); font-size: 13px; min-height: 42px; }
-.pp-transfer-alert button + button { border-left: 1px solid var(--pp-assistive-ring); }
