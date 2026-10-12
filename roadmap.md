@@ -4,5 +4,5 @@
 - [x] Verify transfer selection, amount, closing, and demo-only action after funding completion.
 - [x] Add the recorded destination sheet on instant selection and Change, with sample card and bank choices.
 - [x] Verify selecting destinations and dismissing the sheet without real financial actions or credential collection.
-- [ ] Match the recorded instant-transfer fee, net amount, and standard-transfer return.
-- [ ] Verify both transfer speeds after demo funding, with the balance unchanged.
+- [x] Match the recorded instant-transfer fee, net amount, and standard-transfer return.
+- [x] Verify both transfer speeds after demo funding, with the balance unchanged.
