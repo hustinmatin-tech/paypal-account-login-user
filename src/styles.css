@@ -219,3 +219,19 @@
 .pp-choose-card { width: 100%; height: 44px; border: 1.5px solid var(--primary); border-radius: 24px; font-weight: 700; color: var(--primary); }
 .pp-sheet-bank { width: 100%; justify-content: flex-start; gap: 14px; margin-top: 24px; text-align: left; }.pp-sheet-bank > span:not(.pp-bank-logo) { flex: 1; display: flex; flex-direction: column; gap: 3px; }
 .pp-link-bank { margin: 18px 0 30px; font-weight: 400; }
+.pp-link-header { position: relative; display: flex; justify-content: center; padding: 10px 16px 0; text-align: center; }
+.pp-link-header > button { position: absolute; left: 8px; top: 6px; }
+.pp-link-header div { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--foreground); }
+.pp-link-header small { font-size: 12px; color: var(--muted-foreground); }
+.pp-link-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding-top: 26px; }
+.pp-card-art { position: relative; width: 70px; height: 44px; border-radius: 6px; background: var(--background); box-shadow: var(--pp-key-shadow), 0 4px 10px oklch(0 0 0 / 0.08); border: 1px solid var(--border); }
+.pp-card-art i { position: absolute; left: 8px; height: 3px; border-radius: 2px; background: var(--muted-foreground); opacity: .6; }
+.pp-card-art i:first-child { top: 14px; width: 34px; } .pp-card-art i:nth-child(2) { top: 22px; width: 14px; }
+.pp-card-art b { position: absolute; right: 8px; bottom: 9px; width: 16px; height: 9px; border-radius: 2px; background: var(--primary); }
+.pp-link-content p { margin-top: 30px; font-size: 11px; color: var(--muted-foreground); }
+.pp-card-input { position: relative; margin-top: 8px; min-height: 26px; display: flex; align-items: center; font-size: 18px; color: var(--foreground); letter-spacing: .5px; }
+.pp-card-placeholder { color: var(--foreground); }
+.pp-caret { width: 1.5px; height: 22px; background: var(--foreground); animation: pp-blink 1s steps(1) infinite; }
+@keyframes pp-blink { 50% { opacity: 0; } }
+.pp-scan { margin-top: 28px; gap: 6px; font-size: 12px; font-weight: 600; color: var(--primary); }
+.pp-scan svg { width: 14px; height: 14px; }
