@@ -227,7 +227,7 @@
 .pp-card-art { position: relative; width: 70px; height: 44px; border-radius: 6px; background: var(--background); box-shadow: var(--pp-key-shadow), 0 4px 10px oklch(0 0 0 / 0.08); border: 1px solid var(--border); }
 .pp-card-art i { position: absolute; left: 8px; height: 3px; border-radius: 2px; background: var(--muted-foreground); opacity: .6; }
 .pp-card-art i:first-child { top: 14px; width: 34px; } .pp-card-art i:nth-child(2) { top: 22px; width: 14px; }
-.pp-card-art b { position: absolute; right: 8px; bottom: 9px; width: 16px; height: 9px; border-radius: 2px; background: var(--pp-link, oklch(0.62 0.15 240)); }
+.pp-card-art b { position: absolute; right: 8px; bottom: 9px; width: 16px; height: 9px; border-radius: 2px; background: var(--primary); }
 .pp-link-content p { margin-top: 30px; font-size: 11px; color: var(--muted-foreground); }
 .pp-card-input { position: relative; margin-top: 8px; min-height: 26px; display: flex; align-items: center; font-size: 18px; color: var(--foreground); letter-spacing: .5px; }
 .pp-card-placeholder { color: var(--foreground); }
