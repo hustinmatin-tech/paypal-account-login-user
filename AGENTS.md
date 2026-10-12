@@ -17,4 +17,5 @@
 - Demo funding completion changes only in-memory balance cents after Done; reset on reload and never persist or call financial services, keeping simulated balances distinct from real funds.
 - Keep the Finances continuation in a focused presentational component; its funding activity receives only in-memory demo amounts from the flow so the recording's post-completion activity never implies a real transaction.
 - Keep bank-transfer previews in a focused client-side component receiving the in-memory balance; transfer actions only display a demo notice and never deduct funds or contact financial services.
+- Derive displayed transfer fees and net amounts from one client-side calculation, and restore the standard sample destination when switching speeds; this keeps the recording's preview consistent without moving funds.
 - Home-screen installability stays manifest-only (`public/manifest.webmanifest`, icons under `public/icons/`); no service worker, offline cache, or update polling unless offline use is explicitly requested. Why: preview and published installs keep updating live, and an app-shell worker strands stale caches.
