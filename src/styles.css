@@ -305,6 +305,15 @@
 .pp-transfer-notice { font-size: 12px; line-height: 18px; color: var(--primary); margin: 16px 0 0; }
 .pp-transfer-fee { flex-wrap: wrap; column-gap: 10px; }
 .pp-transfer-fee small { width: 100%; font-size: 13px; line-height: 17px; }
+.pp-transfer-draft { display: flex; align-items: center; justify-content: center; font-size: 47px; outline: none; }
+.pp-transfer-draft .pp-caret { height: 54px; }
+.pp-keyboard-done { display: flex; justify-content: flex-end; padding: 8px 16px; min-height: 36px; background: var(--secondary); }
+.pp-keyboard-done > button { color: var(--pp-blue); font-size: 13px; font-weight: 600; }
+.pp-transfer-editing .pp-transfer-methods { margin-top: 28px; }
+.pp-transfer-editing .pp-transfer-methods .pp-method { height: 150px; }
+.pp-transfer-editing .pp-bank-row { margin-top: 20px; }
+.pp-transfer-keyboard .pp-keyboard { padding-bottom: 32px; }
+.pp-transfer-keyboard .pp-key { height: 42px; }
 @media (max-height: 740px) { .pp-transfer-content { padding-top: 12px; }.pp-transfer-methods { margin-top: 28px; }.pp-transfer-methods .pp-method { height: 154px; }.pp-transfer-content .pp-bank-row { margin-top: 28px; }.pp-transfer-content .pp-fee { margin-top: 28px; }.pp-transfer-disclaimer { margin-top: 25px; } }
 .pp-destination-sheet { border-radius: 8px 8px 0 0; padding: 15px 18px 42px; }
 .pp-sheet-handle { display: flex; width: 70px; height: 22px; margin: 0 auto 12px; justify-content: center; }.pp-sheet-handle span { width: 43px; height: 4px; border-radius: 3px; background: var(--muted-foreground); opacity: .6; }
