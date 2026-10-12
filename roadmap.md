@@ -1,4 +1,4 @@
 - [x] Extend Finances with the recorded direct-deposit panel, options, and demo activity.
 - [x] Verify completion returns to the updated, scrollable Finances screen.
-- [ ] Add the recorded Transfer Money menu and bank-transfer preview.
-- [ ] Verify transfer selection, amount, closing, and demo-only action after funding completion.
+- [x] Add the recorded Transfer Money menu and bank-transfer preview.
+- [x] Verify transfer selection, amount, closing, and demo-only action after funding completion.
