@@ -16,4 +16,5 @@
 - Security-check screens are client-side simulations with a fixed masked sample phone; never send verification texts, collect codes, or claim actual identity verification, so the reference remains a safe demonstration.
 - Demo funding completion changes only in-memory balance cents after Done; reset on reload and never persist or call financial services, keeping simulated balances distinct from real funds.
 - Keep the Finances continuation in a focused presentational component; its funding activity receives only in-memory demo amounts from the flow so the recording's post-completion activity never implies a real transaction.
+- Keep bank-transfer previews in a focused client-side component receiving the in-memory balance; transfer actions only display a demo notice and never deduct funds or contact financial services.
 - Home-screen installability stays manifest-only (`public/manifest.webmanifest`, icons under `public/icons/`); no service worker, offline cache, or update polling unless offline use is explicitly requested. Why: preview and published installs keep updating live, and an app-shell worker strands stale caches.

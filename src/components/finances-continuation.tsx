@@ -1,4 +1,5 @@
 import { ArrowDownToLine, ArrowRightLeft, Banknote, CreditCard, Landmark } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const options = [
   { title: "Set up Direct Deposit", detail: "Up to 2 days early. Learn more", icon: CreditCard },
@@ -7,7 +8,7 @@ const options = [
   { title: "Transfer", detail: "From your balance", icon: ArrowRightLeft },
 ];
 
-export function FinancesContinuation({ addedCents }: { addedCents: number | null }) {
+export function FinancesContinuation({ addedCents, onTransfer }: { addedCents: number | null; onTransfer: () => void }) {
   return <>
     <section className="pp-tax">
       <div className="pp-tax-copy"><strong>Get your federal tax<br/>refund up to 5 days early*</strong><p>Use PayPal Direct Deposit for<br/>your tax refund.</p></div>
@@ -16,7 +17,7 @@ export function FinancesContinuation({ addedCents }: { addedCents: number | null
     </section>
     <section className="pp-finance-options" aria-labelledby="pp-options-title">
       <h2 id="pp-options-title">More options</h2>
-      <ul>{options.map(({ title, detail, icon: Icon }) => <li key={title}><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></li>)}</ul>
+      <ul>{options.map(({ title, detail, icon: Icon }) => <li key={title}>{title === "Transfer" ? <Button variant="plain" className="pp-finance-transfer" onClick={onTransfer}><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></Button> : <><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></>}</li>)}</ul>
     </section>
     <section className="pp-finance-activity" aria-labelledby="pp-finance-activity-title">
       <h2 id="pp-finance-activity-title">Recent activity</h2>

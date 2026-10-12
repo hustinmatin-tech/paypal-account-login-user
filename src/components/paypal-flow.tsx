@@ -3,8 +3,9 @@ import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, 
 import { Button } from "@/components/ui/button";
 import { FundingArt } from "@/components/funding-art";
 import { FinancesContinuation } from "@/components/finances-continuation";
+import { TransferMenu, TransferPreview } from "@/components/transfer-preview";
 
-type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete";
+type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer";
 const sampleCard = "5555555555554444";
 
 function PayPalMark({ colorful = false }: { colorful?: boolean }) {
@@ -28,6 +29,7 @@ export function PayPalFlow() {
   const [demoVerified, setDemoVerified] = useState(false);
   const [balanceCents, setBalanceCents] = useState(3071);
   const [addedCents, setAddedCents] = useState<number | null>(null);
+  const [transferMenu, setTransferMenu] = useState(false);
   const balance = (balanceCents / 100).toFixed(2);
   useEffect(() => {
     if (screen !== "confirmed") return;
@@ -81,7 +83,7 @@ export function PayPalFlow() {
 
   return <main className="pp-stage"><div className="pp-app">
     <div className="pp-demo-label">Demo · Sample card only · No real transactions</div>
-    {screen === "complete" ? <>
+    {screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")}/> : screen === "complete" ? <>
       <section className="pp-money-complete" aria-live="polite"><div className="pp-confirmation-check" aria-hidden="true"><Check/></div><h1>You added ${Number(amount).toFixed(2)} to<br/>your balance</h1><p>Demo balance only · No money moved</p></section>
       <div className="pp-complete-footer"><Button variant="paypal" onClick={finishDemo}>Done</Button></div>
     </> : screen === "security" || screen === "confirmed" ? <>
@@ -120,7 +122,7 @@ export function PayPalFlow() {
           <Button variant="paypal" onClick={openAmount}>Add Money</Button>
           <div className="pp-debit"><div className="pp-debit-heading"><PayPalMark/><strong>Debit Card</strong></div><PayPalMark colorful/><div className="pp-debit-bottom"><span>Use your balance anywhere.</span><div className="pp-mastercard"><i/><i/></div></div></div>
           <Button variant="yellow">Get a PayPal Debit Card</Button>
-           <FinancesContinuation addedCents={addedCents}/>
+            <FinancesContinuation addedCents={addedCents} onTransfer={() => setTransferMenu(true)}/>
         </>}
       </div>
       <footer className="pp-footer">{screen === "home" && <div className="pp-send-actions"><Button variant="yellow">Send</Button><Button variant="yellow">Request</Button></div>}<nav>{navigation.map(({label, icon: Icon}) => <Button key={label} variant="plain" className={(screen === "home" && label === "Home") || (screen === "finances" && label === "Finances") ? "pp-nav-active" : ""} onClick={() => { if(label === "Home") setScreen("home"); if(label === "Finances") setScreen("finances"); }}><Icon/><span>{label}</span></Button>)}</nav></footer>
@@ -135,6 +137,7 @@ export function PayPalFlow() {
       {screen === "methods" && <div className="pp-method-footer">{method === "bank" || linked ? <><p className="pp-disclaimer">{method === "bank" ? "Transfers made after 7:00 PM ET or on weekends or holidays can take a little longer. All transactions are subject to review." : "Applies only to Visa or Mastercard debit cards. Transactions are subject to review. We may delay or decline a transaction if we identify an issue."}</p><Button variant="paypal" onClick={addDemoMoney}>Add ${Number(amount).toFixed(2)} Now</Button></> : <Button variant="plain" className="pp-choose-card" onClick={() => setSheet(true)}>Choose a debit card</Button>}</div>}
       {sheet && <><div className="pp-overlay" onClick={() => setSheet(false)}/><section className="pp-sheet" role="dialog" aria-modal="true" aria-label="Choose a way to add funds"><header><h2>Choose a way to add funds</h2><Button variant="plain" size="icon" aria-label="Close" onClick={() => setSheet(false)}><X/></Button></header>{method === "bank" ? <><Button variant="plain" className="pp-sheet-bank" onClick={() => setSheet(false)}><BankLogo/><span><strong>DEMO BANK N.A.</strong><small>Checking ••••0000</small></span><Check/></Button><Button variant="plain" className="pp-link-card pp-link-bank"><span className="pp-plus"><Plus/></span><span>Link a bank account</span></Button></> : <Button variant="plain" className="pp-link-card" onClick={openLink}><span className="pp-plus"><Plus/></span><strong>Link an eligible debit card to<br/>add funds in seconds</strong></Button>}<Button variant="plain" className="pp-missing-methods">Don’t see all of your payment methods?</Button></section></>}
     </>}
+    {transferMenu && screen === "finances" && <TransferMenu onClose={() => setTransferMenu(false)} onBank={() => { setTransferMenu(false); setScreen("transfer"); }}/ >}
     <div className={`pp-assistive ${screen === "amount" || screen === "link" ? "pp-assistive-keyboard" : ""}`} aria-hidden="true"><i/></div>
   </div></main>;
 }
