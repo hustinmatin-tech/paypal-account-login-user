@@ -13,4 +13,5 @@
 - Keep all reference styling in global semantic design tokens and button variants so every screen shares the same visual system.
 - The reference balance and funding flow is a visual recreation only; never initiate real financial transactions from its controls.
 - Card-linking previews use a fixed sample card and a visible demo label; never capture entered card digits or billing details, so the recreation cannot collect financial credentials.
+- Security-check screens are client-side simulations with a fixed masked sample phone; never send verification texts, collect codes, or claim actual identity verification, so the reference remains a safe demonstration.
 - Home-screen installability stays manifest-only (`public/manifest.webmanifest`, icons under `public/icons/`); no service worker, offline cache, or update polling unless offline use is explicitly requested. Why: preview and published installs keep updating live, and an app-shell worker strands stale caches.
