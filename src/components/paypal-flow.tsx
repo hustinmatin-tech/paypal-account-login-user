@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Moon, Wifi, BatteryMedium, Signal, Landmark, Check } from "lucide-react";
+import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Moon, Camera, Wifi, BatteryMedium, Signal, Landmark, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FundingArt } from "@/components/funding-art";
 
-type Screen = "home" | "finances" | "amount" | "methods";
+type Screen = "home" | "finances" | "amount" | "methods" | "link";
 
 function PayPalMark({ colorful = false }: { colorful?: boolean }) {
   return <svg className={colorful ? "paypal-mark colorful" : "paypal-mark"} viewBox="0 0 80 90" aria-label="PayPal" role="img"><path className="p-back" d="M19 8h30c25 0 30 13 25 30-4 16-17 23-36 23h-9l-4 22H8z"/><path className="p-front" d="M31 27h25c19 0 25 10 21 24-4 14-15 21-31 21h-8l-4 18H20z"/><path className="p-overlap" d="M31 27h25c8 0 14 2 18 5-3 20-16 29-36 29h-13z"/></svg>;
@@ -20,6 +20,9 @@ export function PayPalFlow() {
   const [method, setMethod] = useState("debit");
   const [loading, setLoading] = useState(false);
   const [cryptoBanner, setCryptoBanner] = useState(true);
+  const [card, setCard] = useState("");
+  const openLink = () => { setSheet(false); setCard(""); setScreen("link"); };
+  const cardKey = (key: string) => setCard(p => key === "delete" ? p.slice(0, -1) : p.length >= 16 ? p : p + key);
 
   const openAmount = () => { setAmount("0"); setScreen("amount"); };
   const chooseAmount = (value: string) => {
@@ -34,6 +37,7 @@ export function PayPalFlow() {
   });
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
+      if (screen === "link") { if (/^[0-9]$/.test(event.key)) cardKey(event.key); if (event.key === "Backspace") cardKey("delete"); return; }
       if (screen !== "amount" || loading) return;
       if (/^[0-9.]$/.test(event.key)) enterKey(event.key);
       if (event.key === "Backspace") enterKey("delete");
@@ -44,7 +48,11 @@ export function PayPalFlow() {
 
   return <main className="pp-stage"><div className="pp-app">
     <div className="pp-status"><span>1:53 <Moon size={12} fill="currentColor" /></span><div className="pp-notch"/><span><Signal size={14}/><Wifi size={14}/><BatteryMedium size={20}/></span></div>
-    {(screen === "home" || screen === "finances") ? <>
+    {screen === "link" ? <>
+      <header className="pp-link-header"><Button variant="plain" size="icon" aria-label="Close" onClick={() => { setScreen("methods"); setSheet(true); }}><X/></Button><div><span>Link a debit card</span><small>Visa or Mastercard only</small></div></header>
+      <div className="pp-link-content"><div className="pp-card-art" aria-hidden="true"><i/><i/><b/></div><p>Let’s start with your number.</p><div className="pp-card-input">{card ? card.replace(/(.{4})(?=.)/g, "$1 ") : null}<span className="pp-caret"/>{!card && <span className="pp-card-placeholder">Debit card number</span>}</div><Button variant="plain" className="pp-scan"><Camera/>Scan your card</Button></div>
+      <div className="pp-keyboard-area"><div className="pp-keyboard">{[{n:"1",l:""},{n:"2",l:"ABC"},{n:"3",l:"DEF"},{n:"4",l:"GHI"},{n:"5",l:"JKL"},{n:"6",l:"MNO"},{n:"7",l:"PQRS"},{n:"8",l:"TUV"},{n:"9",l:"WXYZ"},{n:"",l:""},{n:"0",l:""},{n:"delete",l:""}].map(({n,l},i) => n === "" ? <span key={i}/> : <Button key={n} variant="keypad" className={n === "delete" ? "pp-key-transparent" : ""} aria-label={n === "delete" ? "Delete digit" : n} onClick={() => cardKey(n)}>{n === "delete" ? <Delete/> : <><span>{n}</span>{l && <small>{l}</small>}</>}</Button>)}</div></div>
+    </> : (screen === "home" || screen === "finances") ? <>
       <div className="pp-scroll">
         {screen === "home" ? <>
           <header className="pp-home-header"><div className="pp-avatar"> </div><div><Button variant="plain" size="icon" aria-label="Rewards"><Trophy/></Button><Button variant="plain" size="icon" aria-label="Scan"><ScanLine/></Button></div></header>
@@ -70,8 +78,8 @@ export function PayPalFlow() {
       </div>
       {screen === "amount" && <div className="pp-keyboard-area">{Number(amount) > 0 && <div className="pp-continue"><Button variant="paypal" aria-label="Continue" disabled={loading} onClick={() => chooseAmount(amount)}>{loading ? <span className="pp-spinner"/> : "Next"}</Button></div>}<div className="pp-keyboard">{[{n:"1",l:""},{n:"2",l:"ABC"},{n:"3",l:"DEF"},{n:"4",l:"GHI"},{n:"5",l:"JKL"},{n:"6",l:"MNO"},{n:"7",l:"PQRS"},{n:"8",l:"TUV"},{n:"9",l:"WXYZ"},{n:".",l:""},{n:"0",l:""},{n:"delete",l:""}].map(({n,l}) => <Button key={n} variant="keypad" className={n === "." || n === "delete" ? "pp-key-transparent" : ""} aria-label={n === "delete" ? "Delete digit" : n} onClick={() => enterKey(n)}>{n === "delete" ? <Delete/> : <><span>{n}</span>{l && <small>{l}</small>}</>}</Button>)}</div></div>}
       {screen === "methods" && <div className="pp-method-footer">{method === "bank" ? <><p className="pp-disclaimer">Transfers made after 7:00 PM ET or on weekends or holidays can take a little longer. All transactions are subject to review.</p><Button variant="paypal">Add ${Number(amount).toFixed(2)} Now</Button></> : <Button variant="plain" className="pp-choose-card" onClick={() => setSheet(true)}>Choose a debit card</Button>}</div>}
-      {sheet && <><div className="pp-overlay" onClick={() => setSheet(false)}/><section className="pp-sheet" role="dialog" aria-modal="true" aria-label="Choose a way to add funds"><header><h2>Choose a way to add funds</h2><Button variant="plain" size="icon" aria-label="Close" onClick={() => setSheet(false)}><X/></Button></header>{method === "bank" ? <><Button variant="plain" className="pp-sheet-bank" onClick={() => setSheet(false)}><BankLogo/><span><strong>DEMO BANK N.A.</strong><small>Checking ••••0000</small></span><Check/></Button><Button variant="plain" className="pp-link-card pp-link-bank"><span className="pp-plus"><Plus/></span><span>Link a bank account</span></Button></> : <Button variant="plain" className="pp-link-card"><span className="pp-plus"><Plus/></span><strong>Link an eligible debit card to<br/>add funds in seconds</strong></Button>}<Button variant="plain" className="pp-missing-methods">Don’t see all of your payment methods?</Button></section></>}
-    </>}
-    <div className={`pp-assistive ${screen === "amount" ? "pp-assistive-keyboard" : ""}`} aria-hidden="true"><i/></div>
+      {sheet && <><div className="pp-overlay" onClick={() => setSheet(false)}/><section className="pp-sheet" role="dialog" aria-modal="true" aria-label="Choose a way to add funds"><header><h2>Choose a way to add funds</h2><Button variant="plain" size="icon" aria-label="Close" onClick={() => setSheet(false)}><X/></Button></header>{method === "bank" ? <><Button variant="plain" className="pp-sheet-bank" onClick={() => setSheet(false)}><BankLogo/><span><strong>DEMO BANK N.A.</strong><small>Checking ••••0000</small></span><Check/></Button><Button variant="plain" className="pp-link-card pp-link-bank"><span className="pp-plus"><Plus/></span><span>Link a bank account</span></Button></> : <Button variant="plain" className="pp-link-card" onClick={openLink}><span className="pp-plus"><Plus/></span><strong>Link an eligible debit card to<br/>add funds in seconds</strong></Button>}<Button variant="plain" className="pp-missing-methods">Don’t see all of your payment methods?</Button></section></>}
+    </>)}
+    <div className={`pp-assistive ${screen === "amount" || screen === "link" ? "pp-assistive-keyboard" : ""}`} aria-hidden="true"><i/></div>
   </div></main>;
 }
