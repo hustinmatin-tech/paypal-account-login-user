@@ -7,3 +7,5 @@
 - [x] Match the recorded instant-transfer fee, net amount, and standard-transfer return.
 - [x] Verify both transfer speeds after demo funding, with the balance unchanged.
 - [x] Add and verify the recorded transfer editing keypad, Done formatting, and $15 instant preview.
+- [ ] Add the recorded standard bank choices, transfer confirmation, and return notice as a demo without changing the balance.
+- [ ] Verify the continuation end-to-end and reload reset.
