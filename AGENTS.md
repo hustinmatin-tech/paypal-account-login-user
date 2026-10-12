@@ -12,4 +12,5 @@
 - Keep the recording's sequential screens in a single client-side flow at `/`; these are steps of one interaction, not separate content pages.
 - Keep all reference styling in global semantic design tokens and button variants so every screen shares the same visual system.
 - The reference balance and funding flow is a visual recreation only; never initiate real financial transactions from its controls.
+- Card-linking previews use a fixed sample card and a visible demo label; never capture entered card digits or billing details, so the recreation cannot collect financial credentials.
 - Home-screen installability stays manifest-only (`public/manifest.webmanifest`, icons under `public/icons/`); no service worker, offline cache, or update polling unless offline use is explicitly requested. Why: preview and published installs keep updating live, and an app-shell worker strands stale caches.

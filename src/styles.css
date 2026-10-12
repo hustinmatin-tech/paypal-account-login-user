@@ -232,3 +232,24 @@
 @keyframes pp-blink { 50% { opacity: 0; } }
 .pp-scan { margin-top: 28px; gap: 6px; font-size: 12px; font-weight: 600; color: var(--primary); }
 .pp-scan svg { width: 14px; height: 14px; }
+.pp-demo-label { flex-shrink: 0; text-align: center; font-size: 10px; line-height: 22px; color: var(--primary); background: var(--secondary); }
+.pp-card-summary { flex: 1; padding: 30px 16px 0; }
+.pp-summary-art { margin: 0 auto; display: grid; place-items: center; }
+.pp-summary-art .pp-mastercard { padding: 0; }
+.pp-summary-art .pp-mastercard i { position: static; width: 23px; height: 23px; opacity: 1; background: var(--pp-red); }
+.pp-summary-art .pp-mastercard i + i { margin-left: -9px; background: var(--pp-orange); }
+.pp-summary-number { text-align: center; font-size: 20px; margin-top: 34px; }
+.pp-summary-meta { display: flex; justify-content: center; gap: 36px; margin-top: 15px; color: var(--muted-foreground); font-size: 12px; }
+.pp-billing-address { border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; margin-top: 26px; padding-bottom: 15px; }
+.pp-billing-address > div { display: flex; flex-direction: column; gap: 5px; }
+.pp-billing-address small { color: var(--muted-foreground); font-size: 11px; }
+.pp-billing-address span { font-size: 14px; }
+.pp-billing-address svg { width: 16px; color: var(--muted-foreground); }
+.pp-link-submit { border-radius: 0; background: var(--pp-blue); flex-shrink: 0; }
+.pp-link-submit:hover { background: var(--pp-blue); }
+.pp-linked-notice { min-height: 57px; display: flex; align-items: flex-start; gap: 10px; padding: 13px; border-radius: 6px; background: var(--pp-green); color: var(--primary-foreground); font-size: 14px; line-height: 19px; }
+.pp-linked-notice svg { width: 18px; height: 18px; flex-shrink: 0; }
+.pp-bank-row > .pp-row-mastercard { width: 42px; padding-left: 0; flex: 0 0 42px; flex-direction: row; align-items: center; gap: 0; }
+.pp-row-mastercard i { width: 22px; height: 22px; }
+.pp-row-mastercard i + i { margin-left: -8px; }
+@media (prefers-reduced-motion: reduce) { .pp-caret { animation: none; } }
