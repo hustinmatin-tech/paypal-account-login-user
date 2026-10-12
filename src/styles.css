@@ -293,3 +293,14 @@
 .pp-money-complete p { font-size: 12px; line-height: 18px; margin-top: 16px; color: var(--muted-foreground); }
 .pp-complete-footer { flex-shrink: 0; padding: 0 14px 22px; }
 @media (max-height: 740px) { .pp-money-complete { padding-top: 105px; } }
+.pp-finance-transfer { width: 100%; display: flex; justify-content: flex-start; gap: 17px; text-align: left; font-weight: 400; }
+.pp-finance-transfer > svg { width: 21px; height: 21px; color: var(--primary); flex-shrink: 0; }
+.pp-finance-transfer > div { display: flex; flex-direction: column; gap: 5px; }
+.pp-transfer-sheet header { justify-content: center; position: relative; margin-bottom: 14px; }.pp-transfer-sheet header h2 { font-size: 18px; font-weight: 500; }.pp-transfer-sheet header > button { position: absolute; right: 0; }
+.pp-transfer-option { display: flex; align-items: center; justify-content: flex-start; gap: 17px; width: 100%; min-height: 49px; font-size: 16px; font-weight: 400; }.pp-transfer-option svg { width: 23px; height: 23px; color: var(--primary); }
+.pp-transfer-content { flex: 1; min-height: 0; overflow-y: auto; padding: 20px 15px 10px; }
+.pp-transfer-amount { text-align: center; height: 64px; display: grid; place-items: center; }.pp-transfer-amount > button { gap: 8px; font-size: 47px; font-weight: 400; }.pp-transfer-amount svg { width: 16px; height: 16px; color: var(--muted-foreground); }.pp-transfer-amount label { display: flex; align-items: center; justify-content: center; font-size: 47px; width: 100%; }.pp-transfer-amount input { background: transparent; color: var(--foreground); width: 190px; min-width: 0; outline: none; border-bottom: 1px solid var(--border); }
+.pp-transfer-available { margin: 14px 0 0; text-align: center; font-size: 12px; }.pp-transfer-methods { margin-top: 48px; }.pp-transfer-methods .pp-method { height: 177px; justify-content: space-between; padding: 16px 0; }.pp-transfer-methods .pp-method > span:last-child { font-size: 12px; }.pp-transfer-methods .pp-method strong { font-size: 17px; }
+.pp-bank-row > .pp-transfer-bank-art { flex: 0 0 48px; height: 33px; display: grid; place-items: center; background: var(--pp-light-cyan); color: var(--pp-blue); border-radius: 4px; }.pp-transfer-content .pp-bank-row { margin-top: 42px; }.pp-transfer-content .pp-fee { margin-top: 48px; }.pp-transfer-disclaimer { margin-top: 34px; color: var(--muted-foreground); line-height: 1.4; }
+.pp-transfer-notice { font-size: 12px; line-height: 18px; color: var(--primary); margin: 16px 0 0; }
+@media (max-height: 740px) { .pp-transfer-content { padding-top: 12px; }.pp-transfer-methods { margin-top: 28px; }.pp-transfer-methods .pp-method { height: 154px; }.pp-transfer-content .pp-bank-row { margin-top: 28px; }.pp-transfer-content .pp-fee { margin-top: 28px; }.pp-transfer-disclaimer { margin-top: 25px; } }
