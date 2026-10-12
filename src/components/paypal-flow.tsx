@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Moon, Camera, Wifi, BatteryMedium, Signal, Landmark, Check } from "lucide-react";
+import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Camera, Landmark, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FundingArt } from "@/components/funding-art";
 
@@ -47,7 +47,6 @@ export function PayPalFlow() {
   }, [screen, loading]);
 
   return <main className="pp-stage"><div className="pp-app">
-    <div className="pp-status"><span>1:53 <Moon size={12} fill="currentColor" /></span><div className="pp-notch"/><span><Signal size={14}/><Wifi size={14}/><BatteryMedium size={20}/></span></div>
     {screen === "link" ? <>
       <header className="pp-link-header"><Button variant="plain" size="icon" aria-label="Close" onClick={() => { setScreen("methods"); setSheet(true); }}><X/></Button><div><span>Link a debit card</span><small>Visa or Mastercard only</small></div></header>
       <div className="pp-link-content"><div className="pp-card-art" aria-hidden="true"><i/><i/><b/></div><p>Let’s start with your number.</p><div className="pp-card-input">{card ? (card.match(/\d{1,4}/g) ?? []).join(" ") : null}<span className="pp-caret"/>{!card && <span className="pp-card-placeholder">Debit card number</span>}</div><Button variant="plain" className="pp-scan"><Camera/>Scan your card</Button></div>
