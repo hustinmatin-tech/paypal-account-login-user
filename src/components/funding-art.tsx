@@ -1,0 +1,5 @@
+export function FundingArt({ bank = false }: { bank?: boolean }) {
+  return <svg className="pp-funding-art" viewBox="0 0 80 90" role="img" aria-label={bank ? "Hot air balloon" : "Rocket"}>
+    {bank ? <><path className="art-blue" d="M40 4C17 4 8 21 14 43l13 23h26l13-23C72 21 63 4 40 4Z"/><path className="art-light" d="M32 5c-11 15-10 32 2 60h6C27 35 29 17 38 4Z"/><path className="art-light" d="M45 4c10 18 11 33-1 61h6C64 35 62 15 50 6Z"/><path className="art-line" d="m28 65 7 13m17-13-7 13"/><path className="art-yellow" d="M31 76h19l-3 12H34Z"/></> : <><path className="art-yellow" d="m28 57-9 25 15-10 3 12 11-25Z"/><path className="art-dark" d="M32 35 16 40 7 64l19-8Zm21 10 6 14-11 20-2-21Z"/><path className="art-blue" d="M25 55C26 30 44 9 64 5c6 18-2 47-24 61Z"/><path className="art-dark" d="M53 9 64 5l2 15Z"/><circle className="art-dark" cx="49" cy="31" r="10"/><circle className="art-light" cx="49" cy="31" r="6"/></>}
+  </svg>;
+}
