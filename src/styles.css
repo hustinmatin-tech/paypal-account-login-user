@@ -249,7 +249,7 @@
 .pp-link-submit:hover { background: var(--pp-blue); }
 .pp-linked-notice { min-height: 57px; display: flex; align-items: flex-start; gap: 10px; padding: 13px; border-radius: 6px; background: var(--pp-green); color: var(--primary-foreground); font-size: 14px; line-height: 19px; }
 .pp-linked-notice svg { width: 18px; height: 18px; flex-shrink: 0; }
-.pp-row-mastercard { width: 42px; padding-left: 0; }
+.pp-bank-row > .pp-row-mastercard { width: 42px; padding-left: 0; flex: 0 0 42px; flex-direction: row; align-items: center; gap: 0; }
 .pp-row-mastercard i { width: 22px; height: 22px; }
 .pp-row-mastercard i + i { margin-left: -8px; }
 @media (prefers-reduced-motion: reduce) { .pp-caret { animation: none; } }
