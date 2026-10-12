@@ -2,3 +2,5 @@
 - [x] Verify completion returns to the updated, scrollable Finances screen.
 - [x] Add the recorded Transfer Money menu and bank-transfer preview.
 - [x] Verify transfer selection, amount, closing, and demo-only action after funding completion.
+- [ ] Add the recorded destination sheet on instant selection and Change, with sample card and bank choices.
+- [ ] Verify selecting destinations and dismissing the sheet without real financial actions or credential collection.
