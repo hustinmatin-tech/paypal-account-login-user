@@ -272,3 +272,9 @@
 .pp-security-footer { text-align: center; flex-shrink: 0; padding: 20px 20px 50px; }
 .pp-security-footer > .paypal-mark { width: 20px; height: 24px; margin: 0 auto 55px; }
 .pp-security-footer > div { display: flex; flex-wrap: wrap; justify-content: center; gap: 13px; font-size: 12px; color: var(--muted-foreground); }
+.pp-money-complete { flex: 1; padding: 140px 20px 0; text-align: center; }
+.pp-money-complete .pp-confirmation-check { margin-bottom: 32px; }
+.pp-money-complete h1 { font-size: 23px; line-height: 29px; margin: 0; font-weight: 500; }
+.pp-money-complete p { font-size: 12px; line-height: 18px; margin-top: 16px; color: var(--muted-foreground); }
+.pp-complete-footer { flex-shrink: 0; padding: 0 14px 22px; }
+@media (max-height: 740px) { .pp-money-complete { padding-top: 105px; } }
