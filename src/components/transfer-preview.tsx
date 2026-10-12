@@ -38,7 +38,7 @@ export function TransferPreview({ balanceCents, onClose }: { balanceCents: numbe
       if (key === "delete") return previous.length > 1 ? previous.slice(0, -1) : "0";
       if (key === ".") return previous.includes(".") ? previous : previous + ".";
       if (!/^[0-9]$/.test(key)) return previous;
-      const [whole, fraction] = previous.split(".");
+      const [whole = "", fraction] = previous.split(".");
       if (fraction !== undefined ? fraction.length >= 2 : whole.length >= 6) return previous;
       return previous === "0" ? key : previous + key;
     });
