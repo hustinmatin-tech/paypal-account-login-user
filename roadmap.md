@@ -6,3 +6,4 @@
 - [x] Verify selecting destinations and dismissing the sheet without real financial actions or credential collection.
 - [x] Match the recorded instant-transfer fee, net amount, and standard-transfer return.
 - [x] Verify both transfer speeds after demo funding, with the balance unchanged.
+- [x] Add and verify the recorded transfer editing keypad, Done formatting, and $15 instant preview.

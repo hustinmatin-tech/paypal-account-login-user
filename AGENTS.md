@@ -18,4 +18,5 @@
 - Keep the Finances continuation in a focused presentational component; its funding activity receives only in-memory demo amounts from the flow so the recording's post-completion activity never implies a real transaction.
 - Keep bank-transfer previews in a focused client-side component receiving the in-memory balance; transfer actions only display a demo notice and never deduct funds or contact financial services.
 - Derive displayed transfer fees and net amounts from one client-side calculation, and restore the standard sample destination when switching speeds; this keeps the recording's preview consistent without moving funds.
+- Transfer editing uses the shared keypad styles and keeps the last instant sample destination in component memory; this matches editing and speed switching without persisting financial data.
 - Home-screen installability stays manifest-only (`public/manifest.webmanifest`, icons under `public/icons/`); no service worker, offline cache, or update polling unless offline use is explicitly requested. Why: preview and published installs keep updating live, and an app-shell worker strands stale caches.
