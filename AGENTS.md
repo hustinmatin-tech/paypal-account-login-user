@@ -15,4 +15,5 @@
 - Card-linking previews use a fixed sample card and a visible demo label; never capture entered card digits or billing details, so the recreation cannot collect financial credentials.
 - Security-check screens are client-side simulations with a fixed masked sample phone; never send verification texts, collect codes, or claim actual identity verification, so the reference remains a safe demonstration.
 - Demo funding completion changes only in-memory balance cents after Done; reset on reload and never persist or call financial services, keeping simulated balances distinct from real funds.
+- Keep the Finances continuation in a focused presentational component; its funding activity receives only in-memory demo amounts from the flow so the recording's post-completion activity never implies a real transaction.
 - Home-screen installability stays manifest-only (`public/manifest.webmanifest`, icons under `public/icons/`); no service worker, offline cache, or update polling unless offline use is explicitly requested. Why: preview and published installs keep updating live, and an app-shell worker strands stale caches.
