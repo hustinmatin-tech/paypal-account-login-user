@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Landmark, Check, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FundingArt } from "@/components/funding-art";
 import { FinancesContinuation } from "@/components/finances-continuation";
-import { TransferMenu, TransferPreview } from "@/components/transfer-preview";
+import { TransferConfirmation, TransferMenu, TransferPreview, type DemoTransferReceipt } from "@/components/transfer-preview";
 
 type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer";
 const sampleCard = "5555555555554444";
@@ -30,6 +30,13 @@ export function PayPalFlow() {
   const [balanceCents, setBalanceCents] = useState(3071);
   const [addedCents, setAddedCents] = useState<number | null>(null);
   const [transferMenu, setTransferMenu] = useState(false);
+  const [transferReceipt, setTransferReceipt] = useState<DemoTransferReceipt | null>(null);
+  const [receiptDetails, setReceiptDetails] = useState(false);
+  const financesScroll = useRef<HTMLDivElement>(null);
+  const savedScroll = useRef(0);
+  useEffect(() => {
+    if (screen === "finances" && financesScroll.current) financesScroll.current.scrollTop = savedScroll.current;
+  }, [screen, receiptDetails]);
   const balance = (balanceCents / 100).toFixed(2);
   useEffect(() => {
     if (screen !== "confirmed") return;
@@ -83,7 +90,7 @@ export function PayPalFlow() {
 
   return <main className="pp-stage"><div className="pp-app">
     <div className="pp-demo-label">Demo · Sample card only · No real transactions</div>
-    {screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")}/> : screen === "complete" ? <>
+    {receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setScreen("finances"); }}/> : screen === "complete" ? <>
       <section className="pp-money-complete" aria-live="polite"><div className="pp-confirmation-check" aria-hidden="true"><Check/></div><h1>You added ${Number(amount).toFixed(2)} to<br/>your balance</h1><p>Demo balance only · No money moved</p></section>
       <div className="pp-complete-footer"><Button variant="paypal" onClick={finishDemo}>Done</Button></div>
     </> : screen === "security" || screen === "confirmed" ? <>
@@ -109,7 +116,7 @@ export function PayPalFlow() {
       <div className="pp-link-content"><div className="pp-card-art" aria-hidden="true"><i/><i/><b/></div><p>Let’s start with a sample number.</p><div className="pp-card-input">{card ? (card.match(/\d{1,4}/g) ?? []).join(" ") : null}<span className="pp-caret"/>{!card && <span className="pp-card-placeholder">Sample debit card number</span>}</div><Button variant="plain" className="pp-scan" onClick={() => { setCard(sampleCard); setScreen("card-summary"); }}>Use sample card</Button></div>
       <div className="pp-keyboard-area"><div className="pp-keyboard">{[{n:"1",l:""},{n:"2",l:"ABC"},{n:"3",l:"DEF"},{n:"4",l:"GHI"},{n:"5",l:"JKL"},{n:"6",l:"MNO"},{n:"7",l:"PQRS"},{n:"8",l:"TUV"},{n:"9",l:"WXYZ"},{n:"",l:""},{n:"0",l:""},{n:"delete",l:""}].map(({n,l},i) => n === "" ? <span key={`gap-${i}`}/> : <Button key={n} variant="keypad" className={n === "delete" ? "pp-key-transparent" : ""} aria-label={n === "delete" ? "Delete digit" : n} onClick={() => cardKey(n)}>{n === "delete" ? <Delete/> : <><span>{n}</span>{l && <small>{l}</small>}</>}</Button>)}</div></div>
     </> : (screen === "home" || screen === "finances") ? <>
-      <div className="pp-scroll">
+      <div className="pp-scroll" ref={financesScroll}>
         {screen === "home" ? <>
           <header className="pp-home-header"><div className="pp-avatar"> </div><div><Button variant="plain" size="icon" aria-label="Rewards"><Trophy/></Button><Button variant="plain" size="icon" aria-label="Scan"><ScanLine/></Button></div></header>
           <div className="pp-accounts"><div className="pp-account" onClick={() => setScreen("finances")}><PayPalMark/><p>PayPal balance</p><strong>${balance}</strong><Button variant="plain" onClick={event => { event.stopPropagation(); openAmount(); }}>Add money</Button></div><div className="pp-account"><Banknote className="pp-savings-icon"/><p>PayPal Savings</p><strong>$0.00</strong><div className="pp-apy">↑ APY: <span>4.00%</span></div></div></div>
@@ -122,7 +129,7 @@ export function PayPalFlow() {
           <Button variant="paypal" onClick={openAmount}>Add Money</Button>
           <div className="pp-debit"><div className="pp-debit-heading"><PayPalMark/><strong>Debit Card</strong></div><PayPalMark colorful/><div className="pp-debit-bottom"><span>Use your balance anywhere.</span><div className="pp-mastercard"><i/><i/></div></div></div>
           <Button variant="yellow">Get a PayPal Debit Card</Button>
-            <FinancesContinuation addedCents={addedCents} onTransfer={() => setTransferMenu(true)}/>
+            <FinancesContinuation addedCents={addedCents} onTransfer={() => { savedScroll.current = financesScroll.current?.scrollTop ?? 0; setTransferMenu(true); }}/>
         </>}
       </div>
       <footer className="pp-footer">{screen === "home" && <div className="pp-send-actions"><Button variant="yellow">Send</Button><Button variant="yellow">Request</Button></div>}<nav>{navigation.map(({label, icon: Icon}) => <Button key={label} variant="plain" className={(screen === "home" && label === "Home") || (screen === "finances" && label === "Finances") ? "pp-nav-active" : ""} onClick={() => { if(label === "Home") setScreen("home"); if(label === "Finances") setScreen("finances"); }}><Icon/><span>{label}</span></Button>)}</nav></footer>
@@ -138,6 +145,7 @@ export function PayPalFlow() {
       {sheet && <><div className="pp-overlay" onClick={() => setSheet(false)}/><section className="pp-sheet" role="dialog" aria-modal="true" aria-label="Choose a way to add funds"><header><h2>Choose a way to add funds</h2><Button variant="plain" size="icon" aria-label="Close" onClick={() => setSheet(false)}><X/></Button></header>{method === "bank" ? <><Button variant="plain" className="pp-sheet-bank" onClick={() => setSheet(false)}><BankLogo/><span><strong>DEMO BANK N.A.</strong><small>Checking ••••0000</small></span><Check/></Button><Button variant="plain" className="pp-link-card pp-link-bank"><span className="pp-plus"><Plus/></span><span>Link a bank account</span></Button></> : <Button variant="plain" className="pp-link-card" onClick={openLink}><span className="pp-plus"><Plus/></span><strong>Link an eligible debit card to<br/>add funds in seconds</strong></Button>}<Button variant="plain" className="pp-missing-methods">Don’t see all of your payment methods?</Button></section></>}
     </>}
     {transferMenu && screen === "finances" && <TransferMenu onClose={() => setTransferMenu(false)} onBank={() => { setTransferMenu(false); setScreen("transfer"); }}/>}
+    {transferReceipt && screen === "finances" && !receiptDetails && <><div className="pp-overlay"/><section className="pp-transfer-alert" role="alertdialog" aria-modal="true" aria-labelledby="pp-transfer-alert-title"><h2 id="pp-transfer-alert-title">PayPal</h2><p>Demo transfer of ${(transferReceipt.cents / 100).toFixed(2)} USD to {transferReceipt.destination === "capital" ? "CAPITAL ONE N.A." : transferReceipt.destination === "mastercard" ? "Mastercard" : "SUTTON BANK"} (sample).</p><small>No money moved · Balance unchanged</small><div><Button variant="plain" onClick={() => setTransferReceipt(null)}>Done</Button><Button variant="plain" onClick={() => setReceiptDetails(true)}>View Details</Button></div></section></>}
     <div className={`pp-assistive ${screen === "amount" || screen === "link" ? "pp-assistive-keyboard" : ""}`} aria-hidden="true"><i/></div>
   </div></main>;
 }
