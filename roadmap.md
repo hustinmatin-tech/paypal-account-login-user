@@ -14,3 +14,6 @@
 - [x] Research the 2025 PayPal crypto flow and document reference limits.
 - [x] Add the Crypto overview, asset details, and clearly labeled simulated transaction steps.
 - [x] Verify crypto navigation, preview completion, and existing flow regression tests.
+- [ ] Research 2025 PayPal Savings references and document historical limits.
+- [ ] Build the Savings overview, goals, and simulated add/withdraw flows.
+- [ ] Verify Savings end-to-end, reload reset, and existing flow tests.
