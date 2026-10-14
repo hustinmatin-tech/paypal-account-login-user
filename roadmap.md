@@ -9,3 +9,5 @@
 - [x] Add and verify the recorded transfer editing keypad, Done formatting, and $15 instant preview.
 - [x] Add the new recording’s standard bank choice, transfer confirmation, and Finances return notice as a demo.
 - [x] Verify the $15 confirmation, notice dismissal, restored scroll, and unchanged demo balance.
+- [x] Add the recorded transfer pop-up on Finances with arrival date, and deduct the demo transfer from the in-memory balance.
+- [x] Add the recorded PayPal Debit Card offer screen from "Get a PayPal Debit Card", demo-only.
