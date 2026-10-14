@@ -14,7 +14,7 @@ export function FinancesContinuation({ addedCents, completedTransfer, onTransfer
     <section className="pp-tax">
       <div className="pp-tax-copy"><strong>Get your federal tax<br/>refund up to 5 days early*</strong><p>Use PayPal Direct Deposit for<br/>your tax refund.</p></div>
       <div className="pp-deposit-art" aria-hidden="true"><div className="pp-deposit-envelope"/><div className="pp-deposit-note"><i/></div><ArrowDownToLine/></div>
-      <span className="pp-deposit-link">Set up Direct Deposit</span>
+      <span className="pp-deposit-link">Go to Direct Deposit</span>
     </section>
     <section className="pp-finance-options" aria-labelledby="pp-options-title">
       <h2 id="pp-options-title">More options</h2>
@@ -25,6 +25,7 @@ export function FinancesContinuation({ addedCents, completedTransfer, onTransfer
       {completedTransfer && <div className="pp-finance-transaction"><div className="pp-activity-bank" aria-hidden="true">{completedTransfer.destination === "mastercard" ? <CreditCard/> : <Landmark/>}</div><div className="pp-activity-details"><strong>{completedTransfer.destination === "capital" ? "CAPITAL ONE N.A." : completedTransfer.destination === "mastercard" ? "Mastercard Debit" : "SUTTON BANK"}</strong><small>Mar 13</small><small>Transfer to {completedTransfer.destination === "mastercard" ? "card" : "bank"} · Completed</small><small>Demo only · No money moved</small></div><span>−${(completedTransfer.cents / 100).toLocaleString("en-US", { maximumFractionDigits: 2 })}</span></div>}
       {addedCents !== null && <div className="pp-finance-transaction"><div className="pp-activity-card" aria-hidden="true"><CreditCard/></div><div className="pp-activity-details"><strong>MasterCard Debit Card…</strong><small>Mar 13</small><small>Transfer using card · Completed</small></div><span>+${(addedCents / 100).toFixed(0)}</span></div>}
       <div className="pp-finance-transaction"><div className="pp-activity-bank" aria-hidden="true"><Landmark/></div><div className="pp-activity-details"><strong>SUTTON BANK</strong><small>Feb 14</small><small>Transfer to bank · Completed</small></div><span>−$3</span></div>
+      <div className="pp-finance-transaction"><div className="pp-activity-bank" aria-hidden="true"><Landmark/></div><div className="pp-activity-details"><strong>Rakuten</strong><small>Feb 10</small><small>Cash back · Completed</small></div><span>+$23.65</span></div>
     </section>
   </>;
 }
