@@ -90,7 +90,19 @@ export function PayPalFlow() {
 
   return <main className="pp-stage"><div className="pp-app">
     <div className="pp-demo-label">Demo · Sample card only · No real transactions</div>
-    {receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setBalanceCents(previous => Math.max(0, previous - receipt.cents)); setScreen("finances"); }}/> : screen === "complete" ? <>
+    {receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setBalanceCents(previous => Math.max(0, previous - receipt.cents)); setScreen("finances"); }}/> : screen === "debit-card" ? <>
+      <header className="pp-security-header"><span/><Button variant="plain" size="icon" aria-label="Close debit card offer" onClick={() => setScreen("finances")}><X/></Button></header>
+      <div className="pp-scroll pp-promo-scroll">
+        <div className="pp-promo-hero" aria-hidden="true"><div className="pp-promo-hills"/><div className="pp-promo-card"><div className="pp-debit pp-promo-debit"><div className="pp-debit-heading"><PayPalMark/><strong>Debit Card</strong></div><PayPalMark colorful/><div className="pp-debit-bottom"><span>Use your balance anywhere.</span><div className="pp-mastercard"><i/><i/></div></div></div></div></div>
+        <section className="pp-promo-body">
+          <h1>Shop your favorite stores.<br/>Pay with your balance.</h1>
+          <ul className="pp-promo-points"><li>Discover exclusive cash back offers</li><li>Get cash at ATMs</li><li>No monthly fees, no credit check</li><li>Shop with this card today</li></ul>
+          <p className="pp-promo-legal">The PayPal Debit Mastercard® is issued by The Bancorp Bank, N.A. pursuant to a license by Mastercard International Incorporated. This is a debit card linked to your PayPal Balance account and is not a credit card. PayPal is not a bank and does not itself take deposits. Deals may change and are subject to availability. A PayPal Balance account is required to get the card.</p>
+          <p className="pp-promo-legal">Demo only · This offer screen is a visual recreation. No card is ordered and no application is submitted.</p>
+        </section>
+      </div>
+      <div className="pp-complete-footer"><Button variant="paypal" onClick={() => setScreen("finances")}>Get Your PayPal Debit Card</Button></div>
+    </> : screen === "complete" ? <>
       <section className="pp-money-complete" aria-live="polite"><div className="pp-confirmation-check" aria-hidden="true"><Check/></div><h1>You added ${Number(amount).toFixed(2)} to<br/>your balance</h1><p>Demo balance only · No money moved</p></section>
       <div className="pp-complete-footer"><Button variant="paypal" onClick={finishDemo}>Done</Button></div>
     </> : screen === "security" || screen === "confirmed" ? <>
