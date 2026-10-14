@@ -339,3 +339,16 @@
 .pp-transfer-alert > div { display: grid; grid-template-columns: 1fr 1fr; margin: 14px -16px 0; border-top: 1px solid var(--pp-assistive-ring); }
 .pp-transfer-alert button { color: var(--pp-blue); min-height: 44px; font-size: 14px; }
 .pp-transfer-alert button + button { border-left: 1px solid var(--pp-assistive-ring); }
+
+/* Debit card promo (recorded offer screen) */
+.pp-promo-scroll { flex: 1; overflow-y: auto; }
+.pp-promo-hero { position: relative; height: 220px; overflow: hidden; background: linear-gradient(180deg, hsl(205 90% 82%), hsl(210 80% 92%)); }
+.pp-promo-hills { position: absolute; inset: auto -20% -40% -20%; height: 75%; background: hsl(150 45% 55%); border-radius: 50% 50% 0 0; box-shadow: 0 -30px 0 10px hsl(150 50% 45%); }
+.pp-promo-card { position: absolute; top: 34px; left: 50%; transform: translateX(-50%) rotate(-8deg); width: 240px; }
+.pp-promo-debit { width: 100%; }
+.pp-promo-body { padding: 20px 24px 24px; }
+.pp-promo-body h1 { font-size: 26px; font-weight: 700; line-height: 1.2; color: hsl(var(--foreground)); margin: 0 0 16px; }
+.pp-promo-points { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 12px; }
+.pp-promo-points li { position: relative; padding-left: 22px; font-size: 15px; font-weight: 600; color: hsl(var(--foreground)); }
+.pp-promo-points li::before { content: ""; position: absolute; left: 2px; top: 7px; width: 7px; height: 7px; border-radius: 50%; background: hsl(var(--primary)); }
+.pp-promo-legal { font-size: 12px; line-height: 1.5; color: hsl(var(--muted-foreground)); margin: 0 0 12px; }
