@@ -15,7 +15,7 @@ function PayPalMark({ colorful = false }: { colorful?: boolean }) {
 function BankLogo() { return <span className="pp-bank-logo" aria-hidden="true">BANK</span>; }
 
 function PaymentsIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M15.5 6.5c-1-1.2-2.3-1.8-3.5-1.8-2 0-3.5 1.2-3.5 3s1.5 2.6 3.5 3.1c2.2.5 3.5 1.4 3.5 3.2s-1.6 3-3.5 3c-1.3 0-2.7-.6-3.7-1.9"/><path d="M7 3.5 5.5 2 4 3.5"/><path d="M17 20.5 18.5 22 20 20.5"/><path d="M5.5 2v4"/><path d="M18.5 18v4"/></svg>;
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 2.5v19"/><path d="M16 6.2c-.9-1.5-2.3-2.3-4-2.3-2.3 0-4 1.4-4 3.4 0 1.9 1.5 2.8 4 3.3 2.6.6 4 1.6 4 3.5 0 2.1-1.8 3.5-4 3.5-1.8 0-3.3-.9-4.2-2.5"/><path d="M4.5 4.5 3 3 1.5 4.5"/><path d="M3 3v5"/><path d="M19.5 19.5 21 21l1.5-1.5"/><path d="M21 16v5"/></svg>;
 }
 function DealsIcon() {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12.6 2.6 21 11a2 2 0 0 1 0 2.8l-7.2 7.2a2 2 0 0 1-2.8 0L2.6 12.6A2 2 0 0 1 2 11.2V4a2 2 0 0 1 2-2h7.2a2 2 0 0 1 1.4.6z"/><circle cx="7.5" cy="7.5" r="1.4" fill="currentColor" stroke="none"/></svg>;
