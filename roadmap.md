@@ -17,3 +17,5 @@
 - [x] Research 2025 PayPal Savings references and document historical limits.
 - [x] Build the Savings overview, goals, and simulated add/withdraw flows.
 - [x] Verify Savings end-to-end, reload reset, and existing flow tests.
+- [ ] Add the recorded debit-card Rewards continuation and scrollable offers as a demo.
+- [ ] Verify Rewards entry, scrolling, return navigation, and device fit.
