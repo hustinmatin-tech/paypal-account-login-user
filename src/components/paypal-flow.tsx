@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Landmark, Check, ChevronRight } from "lucide-react";
+import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Landmark, Check, ChevronRight, ReceiptText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FundingArt } from "@/components/funding-art";
 import { FinancesContinuation } from "@/components/finances-continuation";
 import { TransferConfirmation, TransferMenu, TransferPreview, type DemoTransferReceipt } from "@/components/transfer-preview";
 
-type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer" | "debit-card";
+type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer" | "debit-card" | "shipping" | "card-ordered";
 const sampleCard = "5555555555554444";
 
 function PayPalMark({ colorful = false }: { colorful?: boolean }) {
@@ -101,7 +101,22 @@ export function PayPalFlow() {
           <p className="pp-promo-legal">Demo only · This offer screen is a visual recreation. No card is ordered and no application is submitted.</p>
         </section>
       </div>
-      <div className="pp-complete-footer"><Button variant="paypal" onClick={() => setScreen("finances")}>Get Your PayPal Debit Card</Button></div>
+      <div className="pp-complete-footer"><Button variant="paypal" disabled={loading} onClick={() => { setLoading(true); window.setTimeout(() => { setLoading(false); setScreen("shipping"); }, 700); }}>{loading ? <span className="pp-spinner"/> : "Get Your PayPal Debit Card"}</Button></div>
+    </> : screen === "shipping" ? <>
+      <header className="pp-flow-header"><Button variant="plain" size="icon" aria-label="Back" onClick={() => setScreen("debit-card")}><ArrowLeft/></Button><span>Confirm shipping address</span></header>
+      <div className="pp-scroll pp-ship"><h1>Where we’ll ship your card</h1><div className="pp-ship-address" aria-label="Sample address">Sample address</div><Button variant="plain" className="pp-ship-add"><Plus/>Add a new address</Button><p className="pp-promo-legal">Demo only · No card is ordered or shipped.</p></div>
+      <div className="pp-complete-footer"><Button variant="paypal" onClick={() => setScreen("card-ordered")}>Confirm</Button></div>
+    </> : screen === "card-ordered" ? <>
+      <header className="pp-flow-header"><Button variant="plain" size="icon" aria-label="Back" onClick={() => setScreen("finances")}><ArrowLeft/></Button><span>PayPal Debit Card</span></header>
+      <div className="pp-scroll pp-ordered">
+        <div className="pp-ordered-card"><div className="pp-debit-heading"><PayPalMark/><small>Debit Card</small></div><span className="pp-ordered-badge">Ordered</span><strong>${balance}</strong><p>Available PayPal balance</p><PayPalMark colorful/><div className="pp-ordered-bottom"><span>◉ •• 2593</span><div className="pp-mastercard"><i/><i/></div></div></div>
+        <div className="pp-ordered-note"><strong>Card ordered</strong><p>We’ll email you when it ships. You can use your digital PayPal Debit Card to shop now.</p><small>Demo only · No card was actually ordered</small></div>
+        <Button variant="paypal" onClick={openAmount}>Add Money</Button>
+        <div className="pp-offers"><div><h2>New cash back offers</h2><p>Start getting cash back at your favorite places. Terms Apply.</p><span className="pp-deposit-link">Explore offers</span></div><span className="pp-offer-art" aria-hidden="true"><Gift/></span></div>
+        <p className="pp-rewards-link">About PayPal Rewards</p>
+        <div className="pp-ordered-tabs"><span className="active">Activity</span><span>Manage</span></div>
+        <div className="pp-keep-track"><span aria-hidden="true"><ReceiptText/></span><div><strong>Keep track easily</strong><p>New transactions will pop up here</p></div></div>
+      </div>
     </> : screen === "complete" ? <>
       <section className="pp-money-complete" aria-live="polite"><div className="pp-confirmation-check" aria-hidden="true"><Check/></div><h1>You added ${Number(amount).toFixed(2)} to<br/>your balance</h1><p>Demo balance only · No money moved</p></section>
       <div className="pp-complete-footer"><Button variant="paypal" onClick={finishDemo}>Done</Button></div>
