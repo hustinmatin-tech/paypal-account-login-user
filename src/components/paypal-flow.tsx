@@ -5,7 +5,7 @@ import { FundingArt } from "@/components/funding-art";
 import { FinancesContinuation } from "@/components/finances-continuation";
 import { TransferConfirmation, TransferMenu, TransferPreview, type DemoTransferReceipt } from "@/components/transfer-preview";
 
-type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer";
+type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer" | "debit-card";
 const sampleCard = "5555555555554444";
 
 function PayPalMark({ colorful = false }: { colorful?: boolean }) {
@@ -90,7 +90,7 @@ export function PayPalFlow() {
 
   return <main className="pp-stage"><div className="pp-app">
     <div className="pp-demo-label">Demo · Sample card only · No real transactions</div>
-    {receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setScreen("finances"); }}/> : screen === "complete" ? <>
+    {receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setBalanceCents(previous => Math.max(0, previous - receipt.cents)); setScreen("finances"); }}/> : screen === "complete" ? <>
       <section className="pp-money-complete" aria-live="polite"><div className="pp-confirmation-check" aria-hidden="true"><Check/></div><h1>You added ${Number(amount).toFixed(2)} to<br/>your balance</h1><p>Demo balance only · No money moved</p></section>
       <div className="pp-complete-footer"><Button variant="paypal" onClick={finishDemo}>Done</Button></div>
     </> : screen === "security" || screen === "confirmed" ? <>
