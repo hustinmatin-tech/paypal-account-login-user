@@ -353,3 +353,27 @@
 .pp-promo-points li::before { content: ""; position: absolute; left: 2px; top: 7px; width: 7px; height: 7px; border-radius: 50%; background: hsl(var(--primary)); }
 .pp-promo-legal { font-size: 12px; line-height: 1.5; color: hsl(var(--muted-foreground)); margin: 0 0 12px; }
 .pp-security-header.pp-header-right > button { left: auto; right: 12px; }
+.pp-ship { padding: 28px 14px; }
+.pp-ship h1 { font-size: 26px; font-weight: 400; margin-bottom: 18px; }
+.pp-ship-address { display: inline-block; background: var(--primary); color: var(--primary-foreground); padding: 10px 16px; border-radius: 2px; font-size: 14px; }
+.pp-ship-add { display: flex; gap: 10px; align-items: center; color: var(--pp-link, var(--primary)); font-weight: 600; margin: 26px 0; padding: 0; }
+.pp-ship-add svg { width: 16px; height: 16px; }
+.pp-ordered { padding: 12px 14px 24px; background: var(--muted); display: flex; flex-direction: column; gap: 12px; }
+.pp-ordered-card { position: relative; height: 200px; border-radius: 10px; background: var(--pp-card); color: var(--primary-foreground); padding: 14px; overflow: hidden; }
+.pp-ordered-card > strong { display: block; font-size: 34px; margin-top: 22px; position: relative; z-index: 1; }
+.pp-ordered-card > p { font-size: 11px; position: relative; z-index: 1; }
+.pp-ordered-card > .colorful { position: absolute; width: 90px; height: 105px; left: 42%; top: 40px; }
+.pp-ordered-badge { position: absolute; top: 12px; right: 12px; background: var(--background); color: var(--foreground); border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 600; }
+.pp-ordered-bottom { position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 12px; font-weight: 600; }
+.pp-ordered-note, .pp-offers, .pp-keep-track { background: var(--background); border-radius: 10px; padding: 14px; }
+.pp-ordered-note p, .pp-offers p, .pp-keep-track p { font-size: 12px; color: var(--muted-foreground); margin-top: 4px; }
+.pp-ordered-note small { display: block; font-size: 11px; color: var(--muted-foreground); margin-top: 6px; }
+.pp-offers { display: flex; justify-content: space-between; gap: 12px; }
+.pp-offers h2 { font-size: 21px; font-weight: 400; }
+.pp-offer-art { font-size: 44px; align-self: flex-end; }
+.pp-rewards-link { text-align: center; color: var(--primary); font-weight: 600; font-size: 14px; }
+.pp-ordered-tabs { display: flex; background: var(--secondary); border-radius: 999px; padding: 3px; font-size: 12px; font-weight: 600; }
+.pp-ordered-tabs span { flex: 1; text-align: center; padding: 8px; border-radius: 999px; color: var(--muted-foreground); }
+.pp-ordered-tabs .active { background: var(--background); color: var(--foreground); }
+.pp-keep-track { display: flex; gap: 14px; align-items: center; }
+.pp-keep-track > span { font-size: 30px; }
