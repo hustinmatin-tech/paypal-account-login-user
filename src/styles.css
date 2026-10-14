@@ -352,3 +352,4 @@
 .pp-promo-points li { position: relative; padding-left: 22px; font-size: 15px; font-weight: 600; color: hsl(var(--foreground)); }
 .pp-promo-points li::before { content: ""; position: absolute; left: 2px; top: 7px; width: 7px; height: 7px; border-radius: 50%; background: hsl(var(--primary)); }
 .pp-promo-legal { font-size: 12px; line-height: 1.5; color: hsl(var(--muted-foreground)); margin: 0 0 12px; }
+.pp-security-header.pp-header-right > button { left: auto; right: 12px; }
