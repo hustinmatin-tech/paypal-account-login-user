@@ -17,7 +17,7 @@ describe("in-memory Savings simulation", () => {
   it("allocates to a goal without changing total savings", () => {
     const before = { generalCents: 1000, goals: [{ id: 1, name: "Trip", targetCents: 50000, cents: 0 }] };
     const result = moveDemoSavings(before, 2071, "general", 1, 500);
-    expect(result?.savings.goals[0].cents).toBe(500);
+    expect(result?.savings.goals[0]?.cents).toBe(500);
     expect(result && savingsTotal(result.savings)).toBe(1000);
   });
   it("rejects overspending, invalid amounts, and nonexistent goals", () => {
