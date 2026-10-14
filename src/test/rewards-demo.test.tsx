@@ -15,7 +15,7 @@ describe("recorded Rewards simulation", () => {
   it("saves and removes a sample offer without calling a service", () => {
     render(<RewardsFlow onBack={() => {}}/>);
     fireEvent.click(screen.getByRole("button", { name: "Save Target demo offer" }));
-    fireEvent.click(screen.getByRole("tab", { name: "Saved", exact: true }));
+    fireEvent.click(screen.getByRole("tab", { name: /^Saved$/ }));
     expect(screen.getByRole("button", { name: "Unsave Target demo offer" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.queryByRole("button", { name: "Save Home Depot demo offer" })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Unsave Target demo offer" }));
