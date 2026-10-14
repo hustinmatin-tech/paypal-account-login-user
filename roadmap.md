@@ -19,5 +19,5 @@
 - [x] Verify Savings end-to-end, reload reset, and existing flow tests.
 - [x] Add the recorded debit-card Rewards continuation and scrollable offers as a demo.
 - [x] Verify Rewards entry, scrolling, return navigation, and device fit.
-- [ ] Match the new recording’s card-to-Finances return and completed transfer activity.
-- [ ] Verify the continuation and retained demo activity after dismissing the transfer notice.
+- [x] Match the new recording’s card-to-Finances return and completed transfer activity.
+- [x] Verify the continuation and retained demo activity after dismissing the transfer notice.
