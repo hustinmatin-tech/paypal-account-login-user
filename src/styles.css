@@ -454,6 +454,14 @@
 .pp-savings-interest span { color: var(--muted-foreground); font-size: 12px; }
 .pp-savings-interest strong { font-size: 18px; font-weight: 400; }
 .pp-savings-buckets { margin-top: 24px; }
+.pp-savings-balance-card.pp-plain { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; width: 100%; min-height: 157px; margin-top: 24px; padding: 18px; gap: 0; border-radius: 8px; background: var(--primary); color: var(--primary-foreground); text-align: left; white-space: normal; }
+.pp-savings-balance-card.pp-plain:hover { background: var(--primary); }
+.pp-savings-card-heading { display: flex; align-items: center; gap: 10px; width: 100%; font-size: 16px; font-weight: 500; }
+.pp-savings-card-heading > svg:first-child { width: 26px; height: 29px; }
+.pp-savings-card-heading > svg:last-child { margin-left: auto; }
+.pp-savings-card-heading .p-back, .pp-savings-card-heading .p-front, .pp-savings-card-heading .p-overlap { fill: var(--primary-foreground); }
+.pp-savings-balance-card > strong { font-size: 34px; line-height: 1.2; margin-top: 18px; font-weight: 400; overflow-wrap: anywhere; max-width: 100%; }
+.pp-savings-balance-card > small { font-size: 11px; margin-top: 5px; font-weight: 400; }
 .pp-savings-bucket.pp-plain { display: flex; width: 100%; min-height: 84px; gap: 14px; justify-content: flex-start; text-align: left; white-space: normal; padding: 14px 0; border-bottom: 1px solid var(--border); }
 .pp-savings-symbol { width: 44px; height: 44px; border-radius: 50%; background: var(--secondary); color: var(--primary); display: grid; place-items: center; flex: 0 0 44px; }
 .pp-savings-symbol svg { width: 23px; height: 23px; }
