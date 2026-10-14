@@ -5,7 +5,7 @@ import { FundingArt } from "@/components/funding-art";
 import { FinancesContinuation } from "@/components/finances-continuation";
 import { TransferConfirmation, TransferMenu, TransferPreview, type DemoTransferReceipt } from "@/components/transfer-preview";
 
-type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer";
+type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer" | "debit-card";
 const sampleCard = "5555555555554444";
 
 function PayPalMark({ colorful = false }: { colorful?: boolean }) {
@@ -90,7 +90,19 @@ export function PayPalFlow() {
 
   return <main className="pp-stage"><div className="pp-app">
     <div className="pp-demo-label">Demo · Sample card only · No real transactions</div>
-    {receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setScreen("finances"); }}/> : screen === "complete" ? <>
+    {receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setBalanceCents(previous => Math.max(0, previous - receipt.cents)); setScreen("finances"); }}/> : screen === "debit-card" ? <>
+      <header className="pp-security-header pp-header-right"><span/><Button variant="plain" size="icon" aria-label="Close debit card offer" onClick={() => setScreen("finances")}><X/></Button></header>
+      <div className="pp-scroll pp-promo-scroll">
+        <div className="pp-promo-hero" aria-hidden="true"><div className="pp-promo-hills"/><div className="pp-promo-card"><div className="pp-debit pp-promo-debit"><div className="pp-debit-heading"><PayPalMark/><strong>Debit Card</strong></div><PayPalMark colorful/><div className="pp-debit-bottom"><span>Use your balance anywhere.</span><div className="pp-mastercard"><i/><i/></div></div></div></div></div>
+        <section className="pp-promo-body">
+          <h1>Shop your favorite stores.<br/>Pay with your balance.</h1>
+          <ul className="pp-promo-points"><li>Discover exclusive cash back offers</li><li>Get cash at ATMs</li><li>No monthly fees, no credit check</li><li>Shop with this card today</li></ul>
+          <p className="pp-promo-legal">The PayPal Debit Mastercard® is issued by The Bancorp Bank, N.A. pursuant to a license by Mastercard International Incorporated. This is a debit card linked to your PayPal Balance account and is not a credit card. PayPal is not a bank and does not itself take deposits. Deals may change and are subject to availability. A PayPal Balance account is required to get the card.</p>
+          <p className="pp-promo-legal">Demo only · This offer screen is a visual recreation. No card is ordered and no application is submitted.</p>
+        </section>
+      </div>
+      <div className="pp-complete-footer"><Button variant="paypal" onClick={() => setScreen("finances")}>Get Your PayPal Debit Card</Button></div>
+    </> : screen === "complete" ? <>
       <section className="pp-money-complete" aria-live="polite"><div className="pp-confirmation-check" aria-hidden="true"><Check/></div><h1>You added ${Number(amount).toFixed(2)} to<br/>your balance</h1><p>Demo balance only · No money moved</p></section>
       <div className="pp-complete-footer"><Button variant="paypal" onClick={finishDemo}>Done</Button></div>
     </> : screen === "security" || screen === "confirmed" ? <>
@@ -128,7 +140,7 @@ export function PayPalFlow() {
           <section className="pp-balance"><p>Total PayPal Balance</p><div>${balance}</div></section>
           <Button variant="paypal" onClick={openAmount}>Add Money</Button>
           <div className="pp-debit"><div className="pp-debit-heading"><PayPalMark/><strong>Debit Card</strong></div><PayPalMark colorful/><div className="pp-debit-bottom"><span>Use your balance anywhere.</span><div className="pp-mastercard"><i/><i/></div></div></div>
-          <Button variant="yellow">Get a PayPal Debit Card</Button>
+          <Button variant="yellow" onClick={() => { savedScroll.current = financesScroll.current?.scrollTop ?? 0; setScreen("debit-card"); }}>Get a PayPal Debit Card</Button>
             <FinancesContinuation addedCents={addedCents} onTransfer={() => { savedScroll.current = financesScroll.current?.scrollTop ?? 0; setTransferMenu(true); }}/>
         </>}
       </div>
@@ -145,7 +157,7 @@ export function PayPalFlow() {
       {sheet && <><div className="pp-overlay" onClick={() => setSheet(false)}/><section className="pp-sheet" role="dialog" aria-modal="true" aria-label="Choose a way to add funds"><header><h2>Choose a way to add funds</h2><Button variant="plain" size="icon" aria-label="Close" onClick={() => setSheet(false)}><X/></Button></header>{method === "bank" ? <><Button variant="plain" className="pp-sheet-bank" onClick={() => setSheet(false)}><BankLogo/><span><strong>DEMO BANK N.A.</strong><small>Checking ••••0000</small></span><Check/></Button><Button variant="plain" className="pp-link-card pp-link-bank"><span className="pp-plus"><Plus/></span><span>Link a bank account</span></Button></> : <Button variant="plain" className="pp-link-card" onClick={openLink}><span className="pp-plus"><Plus/></span><strong>Link an eligible debit card to<br/>add funds in seconds</strong></Button>}<Button variant="plain" className="pp-missing-methods">Don’t see all of your payment methods?</Button></section></>}
     </>}
     {transferMenu && screen === "finances" && <TransferMenu onClose={() => setTransferMenu(false)} onBank={() => { setTransferMenu(false); setScreen("transfer"); }}/>}
-    {transferReceipt && screen === "finances" && !receiptDetails && <><div className="pp-overlay"/><section className="pp-transfer-alert" role="alertdialog" aria-modal="true" aria-labelledby="pp-transfer-alert-title"><h2 id="pp-transfer-alert-title">PayPal</h2><p>Demo transfer of ${(transferReceipt.cents / 100).toFixed(2)} USD to {transferReceipt.destination === "capital" ? "CAPITAL ONE N.A." : transferReceipt.destination === "mastercard" ? "Mastercard" : "SUTTON BANK"} (sample).</p><small>No money moved · Balance unchanged</small><div><Button variant="plain" onClick={() => setTransferReceipt(null)}>Done</Button><Button variant="plain" onClick={() => setReceiptDetails(true)}>View Details</Button></div></section></>}
+    {transferReceipt && screen === "finances" && !receiptDetails && <><div className="pp-overlay"/><section className="pp-transfer-alert" role="alertdialog" aria-modal="true" aria-labelledby="pp-transfer-alert-title"><h2 id="pp-transfer-alert-title">PayPal</h2><p>You transferred ${(transferReceipt.cents / 100).toFixed(2)} USD to {transferReceipt.destination === "capital" ? "CAPITAL ONE N.A. (1200)" : transferReceipt.destination === "mastercard" ? "Mastercard Debit (4444)" : "SUTTON BANK (0000)"}. Look for it to arrive on March 14, 2023.</p><small>Demo only · No money moved</small><div><Button variant="plain" onClick={() => setTransferReceipt(null)}>Done</Button><Button variant="plain" onClick={() => setReceiptDetails(true)}>View Details</Button></div></section></>}
     <div className={`pp-assistive ${screen === "amount" || screen === "link" ? "pp-assistive-keyboard" : ""}`} aria-hidden="true"><i/></div>
   </div></main>;
 }
