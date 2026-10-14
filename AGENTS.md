@@ -16,6 +16,7 @@
 - Security-check screens are client-side simulations with a fixed masked sample phone; never send verification texts, collect codes, or claim actual identity verification, so the reference remains a safe demonstration.
 - Demo funding completion changes only in-memory balance cents after Done; reset on reload and never persist or call financial services, keeping simulated balances distinct from real funds.
 - Keep the Finances continuation in a focused presentational component; its funding activity receives only in-memory demo amounts from the flow so the recording's post-completion activity never implies a real transaction.
+- Keep the latest completed demo transfer separate from its dismissible notice and pass it to Finances activity; clearing the notice preserves activity while reload clears both, matching the recorded continuation without persistence.
 - Keep bank-transfer previews and confirmation in a focused client-side component; return only an in-memory demo receipt to Finances and never deduct funds or contact financial services, so the recorded completion remains clearly simulated.
 - Derive displayed transfer fees and net amounts from one client-side calculation, and restore the standard sample destination when switching speeds; this keeps the recording's preview consistent without moving funds.
 - Transfer editing uses the shared keypad styles and keeps the last instant sample destination in component memory; this matches editing and speed switching without persisting financial data.

@@ -1,5 +1,6 @@
 import { ArrowDownToLine, ArrowRightLeft, Banknote, CreditCard, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { DemoTransferReceipt } from "@/components/transfer-preview";
 
 const options = [
   { title: "Set up Direct Deposit", detail: "Up to 2 days early. Learn more", icon: CreditCard },
@@ -8,7 +9,7 @@ const options = [
   { title: "Transfer", detail: "From your balance", icon: ArrowRightLeft },
 ];
 
-export function FinancesContinuation({ addedCents, onTransfer }: { addedCents: number | null; onTransfer: () => void }) {
+export function FinancesContinuation({ addedCents, completedTransfer, onTransfer }: { addedCents: number | null; completedTransfer: DemoTransferReceipt | null; onTransfer: () => void }) {
   return <>
     <section className="pp-tax">
       <div className="pp-tax-copy"><strong>Get your federal tax<br/>refund up to 5 days early*</strong><p>Use PayPal Direct Deposit for<br/>your tax refund.</p></div>
@@ -21,6 +22,7 @@ export function FinancesContinuation({ addedCents, onTransfer }: { addedCents: n
     </section>
     <section className="pp-finance-activity" aria-labelledby="pp-finance-activity-title">
       <h2 id="pp-finance-activity-title">Recent activity</h2>
+      {completedTransfer && <div className="pp-finance-transaction"><div className="pp-activity-bank" aria-hidden="true">{completedTransfer.destination === "mastercard" ? <CreditCard/> : <Landmark/>}</div><div className="pp-activity-details"><strong>{completedTransfer.destination === "capital" ? "CAPITAL ONE N.A." : completedTransfer.destination === "mastercard" ? "Mastercard Debit" : "SUTTON BANK"}</strong><small>Mar 13</small><small>Transfer to {completedTransfer.destination === "mastercard" ? "card" : "bank"} · Completed</small><small>Demo only · No money moved</small></div><span>−${(completedTransfer.cents / 100).toLocaleString("en-US", { maximumFractionDigits: 2 })}</span></div>}
       {addedCents !== null && <div className="pp-finance-transaction"><div className="pp-activity-card" aria-hidden="true"><CreditCard/></div><div className="pp-activity-details"><strong>MasterCard Debit Card…</strong><small>Mar 13</small><small>Transfer using card · Completed</small></div><span>+${(addedCents / 100).toFixed(0)}</span></div>}
       <div className="pp-finance-transaction"><div className="pp-activity-bank" aria-hidden="true"><Landmark/></div><div className="pp-activity-details"><strong>SUTTON BANK</strong><small>Feb 14</small><small>Transfer to bank · Completed</small></div><span>−$3</span></div>
     </section>
