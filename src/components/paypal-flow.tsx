@@ -5,8 +5,10 @@ import { FundingArt } from "@/components/funding-art";
 import { FinancesContinuation } from "@/components/finances-continuation";
 import { TransferConfirmation, TransferMenu, TransferPreview, type DemoTransferReceipt } from "@/components/transfer-preview";
 import { CryptoFlow } from "@/components/crypto-flow";
+import { SavingsFlow } from "@/components/savings-flow";
+import { emptySavings, savingsTotal } from "@/lib/savings-demo";
 
-type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer" | "debit-card" | "shipping" | "card-ordered" | "crypto";
+type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer" | "debit-card" | "shipping" | "card-ordered" | "crypto" | "savings";
 const sampleCard = "5555555555554444";
 
 function PayPalMark({ colorful = false }: { colorful?: boolean }) {
@@ -39,6 +41,7 @@ export function PayPalFlow() {
   const [linkedNotice, setLinkedNotice] = useState(false);
   const [demoVerified, setDemoVerified] = useState(false);
   const [balanceCents, setBalanceCents] = useState(3071);
+  const [savings, setSavings] = useState(emptySavings);
   const [addedCents, setAddedCents] = useState<number | null>(null);
   const [transferMenu, setTransferMenu] = useState(false);
   const [transferReceipt, setTransferReceipt] = useState<DemoTransferReceipt | null>(null);
@@ -100,9 +103,9 @@ export function PayPalFlow() {
   }, [screen, loading]);
 
   const cryptoNavigation = () => <footer className="pp-footer"><nav>{navigation.map(({ label, icon: Icon }) => <Button key={label} variant="plain" className={label === "Finances" ? "pp-nav-active" : ""} onClick={() => { if (label === "Home") setScreen("home"); if (label === "Finances") setScreen("finances"); }}><Icon/><span>{label}</span></Button>)}</nav></footer>;
-  return <main className="pp-stage"><div className={`pp-app${screen === "crypto" ? " pp-crypto-app" : ""}`}>
+  return <main className="pp-stage"><div className={`pp-app${screen === "crypto" || screen === "savings" ? " pp-crypto-app" : ""}`}>
     <div className="pp-demo-label">Demo · Sample card only · No real transactions</div>
-    {screen === "crypto" ? <CryptoFlow onExit={() => setScreen("finances")} renderNavigation={cryptoNavigation}/> : receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setBalanceCents(previous => Math.max(0, previous - receipt.cents)); setScreen("finances"); }}/> : screen === "debit-card" ? <>
+    {screen === "savings" ? <SavingsFlow savings={savings} balanceCents={balanceCents} onUpdate={(next, balance) => { setSavings(next); setBalanceCents(balance); }} onExit={() => setScreen("finances")} onCrypto={() => setScreen("crypto")} renderNavigation={cryptoNavigation}/> : screen === "crypto" ? <CryptoFlow onExit={() => setScreen("finances")} onSavings={() => setScreen("savings")} renderNavigation={cryptoNavigation}/> : receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setBalanceCents(previous => Math.max(0, previous - receipt.cents)); setScreen("finances"); }}/> : screen === "debit-card" ? <>
       <header className="pp-security-header pp-header-right"><span/><Button variant="plain" size="icon" aria-label="Close debit card offer" onClick={() => setScreen("finances")}><X/></Button></header>
       <div className="pp-scroll pp-promo-scroll">
         <div className="pp-promo-hero" aria-hidden="true"><div className="pp-promo-hills"/><div className="pp-promo-card"><div className="pp-debit pp-promo-debit"><div className="pp-debit-heading"><PayPalMark/><strong>Debit Card</strong></div><PayPalMark colorful/><div className="pp-debit-bottom"><span>Use your balance anywhere.</span><div className="pp-mastercard"><i/><i/></div></div></div></div></div>
@@ -158,12 +161,12 @@ export function PayPalFlow() {
       <div className="pp-scroll" ref={financesScroll}>
         {screen === "home" ? <>
           <header className="pp-home-header"><div className="pp-avatar"> </div><div><Button variant="plain" size="icon" aria-label="Rewards"><Trophy/></Button><Button variant="plain" size="icon" aria-label="Scan"><ScanLine/></Button></div></header>
-          <div className="pp-accounts"><div className="pp-account" onClick={() => setScreen("finances")}><PayPalMark/><p>PayPal balance</p><strong>${balance}</strong><Button variant="plain" onClick={event => { event.stopPropagation(); openAmount(); }}>Add money</Button></div><div className="pp-account"><Banknote className="pp-savings-icon"/><p>PayPal Savings</p><strong>$0.00</strong><div className="pp-apy">↑ APY: <span>4.00%</span></div></div></div>
+          <div className="pp-accounts"><div className="pp-account" onClick={() => setScreen("finances")}><PayPalMark/><p>PayPal balance</p><strong>${balance}</strong><Button variant="plain" onClick={event => { event.stopPropagation(); openAmount(); }}>Add money</Button></div><Button variant="plain" className="pp-account pp-savings-home" onClick={() => setScreen("savings")}><Banknote className="pp-savings-icon"/><p>PayPal Savings</p><strong>${(savingsTotal(savings) / 100).toFixed(2)}</strong><div className="pp-apy">↑ APY: <span>4.00%</span></div><small>Illustrative rate · Demo</small></Button></div>
           <div className="pp-setup"><div className="pp-progress">4/5</div><div><strong>Set up your account</strong><p>You're almost done!</p></div></div>
           {cryptoBanner && <div className="pp-crypto"><span className="pp-crypto-art">💸</span><div><Button variant="plain" className="pp-crypto-entry" onClick={() => setScreen("crypto")}><strong>Move crypto your way—<br/>Send. Receive. Enjoy.</strong></Button><p>Terms apply.</p></div><Button variant="plain" size="icon" aria-label="Dismiss crypto banner" onClick={() => setCryptoBanner(false)}><X/></Button></div>}
           <section className="pp-activity"><h2>Recent activity</h2><div className="pp-transaction"><div className="pp-bank"><Landmark/></div><div><strong>SUTTON BANK</strong><p>Feb 14</p><p>Transfer to bank · Completed</p></div></div></section>
         </> : <>
-          <h1 className="pp-title">Finances</h1><div className="pp-tabs"><Button variant="plain" className="pp-tab-active">Balance</Button><Button variant="plain">Savings</Button><Button variant="plain" onClick={() => setScreen("crypto")}>Crypto</Button></div>
+          <h1 className="pp-title">Finances</h1><div className="pp-tabs"><Button variant="plain" className="pp-tab-active">Balance</Button><Button variant="plain" onClick={() => setScreen("savings")}>Savings</Button><Button variant="plain" onClick={() => setScreen("crypto")}>Crypto</Button></div>
           <section className="pp-balance"><p>Total PayPal Balance</p><div>${balance}</div></section>
           <Button variant="paypal" onClick={openAmount}>Add Money</Button>
           <div className="pp-debit"><div className="pp-debit-heading"><PayPalMark/><strong>Debit Card</strong></div><PayPalMark colorful/><div className="pp-debit-bottom"><span>Use your balance anywhere.</span><div className="pp-mastercard"><i/><i/></div></div></div>
@@ -185,6 +188,6 @@ export function PayPalFlow() {
     </>}
     {transferMenu && screen === "finances" && <TransferMenu onClose={() => setTransferMenu(false)} onBank={() => { setTransferMenu(false); setScreen("transfer"); }}/>}
     {transferReceipt && screen === "finances" && !receiptDetails && <><div className="pp-overlay"/><section className="pp-transfer-alert" role="alertdialog" aria-modal="true" aria-labelledby="pp-transfer-alert-title"><h2 id="pp-transfer-alert-title">PayPal</h2><p>You transferred ${(transferReceipt.cents / 100).toFixed(2)} USD to {transferReceipt.destination === "capital" ? "CAPITAL ONE N.A. (1200)" : transferReceipt.destination === "mastercard" ? "Mastercard Debit (4444)" : "SUTTON BANK (0000)"}. It arrived instantly.</p><small>Demo only · No money moved</small><div><Button variant="plain" onClick={() => setTransferReceipt(null)}>Done</Button><Button variant="plain" onClick={() => setReceiptDetails(true)}>View Details</Button></div></section></>}
-    {screen !== "crypto" && <div className={`pp-assistive ${screen === "amount" || screen === "link" ? "pp-assistive-keyboard" : ""}`} aria-hidden="true"><i/></div>}
+    {screen !== "crypto" && screen !== "savings" && <div className={`pp-assistive ${screen === "amount" || screen === "link" ? "pp-assistive-keyboard" : ""}`} aria-hidden="true"><i/></div>}
   </div></main>;
 }

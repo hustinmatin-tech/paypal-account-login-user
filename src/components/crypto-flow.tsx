@@ -13,7 +13,7 @@ function Coin({ id }: { id: CryptoId }) {
   return <span className={`pp-coin pp-coin-${id}`} aria-hidden="true">{asset.symbol}</span>;
 }
 
-export function CryptoFlow({ onExit, renderNavigation }: { onExit: () => void; renderNavigation: () => React.ReactNode }) {
+export function CryptoFlow({ onExit, onSavings, renderNavigation }: { onExit: () => void; onSavings: () => void; renderNavigation: () => React.ReactNode }) {
   const [step, setStep] = useState<Step>("overview");
   const [id, setId] = useState<CryptoId>("btc");
   const [action, setAction] = useState<CryptoAction>("Buy");
@@ -49,7 +49,7 @@ export function CryptoFlow({ onExit, renderNavigation }: { onExit: () => void; r
     {step === "overview" ? <>
       <div className="pp-scroll pp-crypto-scroll">
         <h1 className="pp-title">Finances</h1>
-        <div className="pp-tabs"><Button variant="plain" onClick={onExit}>Balance</Button><Button variant="plain" disabled>Savings</Button><Button variant="plain" className="pp-tab-active" aria-pressed>Crypto</Button></div>
+        <div className="pp-tabs"><Button variant="plain" onClick={onExit}>Balance</Button><Button variant="plain" onClick={onSavings}>Savings</Button><Button variant="plain" className="pp-tab-active" aria-pressed>Crypto</Button></div>
         <section className="pp-crypto-summary"><p>Total crypto</p><h2>{money(total)}</h2><small>Demo portfolio · Illustrative prices</small></section>
         <div className="pp-crypto-actions"><Button variant="plain" onClick={() => { setId("btc"); begin("Buy"); }}><span><Plus/></span>Buy</Button><Button variant="plain" onClick={() => { setId("btc"); begin("Sell"); }}><span><ArrowUpRight/></span>Sell</Button><Button variant="plain" onClick={() => setTransfer(true)}><span><ArrowRightLeft/></span>Transfer</Button></div>
         <section className="pp-crypto-market"><h2>Crypto</h2>{cryptoAssets.map(item => <Button variant="plain" key={item.id} className="pp-crypto-asset-row" onClick={() => { setId(item.id); setRange("1D"); setStep("asset"); }}><Coin id={item.id}/><span><strong>{item.name}</strong><small>{item.ticker}{holdings[item.id] > 0 ? ` · ${holdings[item.id].toFixed(6)}` : ""}</small></span><span><strong>{money(item.price)}</strong><small className={item.change < 0 ? "pp-crypto-down" : "pp-crypto-up"}>{item.change < 0 ? "↓" : "↑"} {Math.abs(item.change).toFixed(2)}%</small></span></Button>)}</section>

@@ -435,3 +435,69 @@
 .pp-crypto-receive { text-align: center; padding: 30px 24px; }.pp-crypto-receive h1 { font-size: 24px; margin: 18px 0; }.pp-crypto-receive h2 { font-size: 19px; margin: 18px 0; }.pp-crypto-receive p { font-size: 14px; line-height: 1.6; color: var(--muted-foreground); margin-bottom: 20px; }.pp-crypto-receive-symbol { display: grid; place-items: center; background: var(--secondary); color: var(--primary); width: 100px; height: 100px; margin: 25px auto; border-radius: 8px; }.pp-crypto-receive-symbol svg { width: 45px; height: 45px; }
 .pp-crypto-sheet { max-height: calc(100% - 45px); overflow-y: auto; border-radius: 8px 8px 0 0; }.pp-crypto-sheet header { justify-content: space-between; margin-bottom: 20px; }.pp-crypto-sheet > button { display: flex; width: 100%; text-align: left; justify-content: flex-start; padding: 17px 0; gap: 15px; }.pp-crypto-sheet > button > span { display: flex; flex-direction: column; gap: 5px; flex: 1; }.pp-crypto-sheet small { color: var(--muted-foreground); font-size: 12px; }.pp-crypto-sheet p { font-size: 14px; line-height: 1.6; }
 @media (max-height: 650px) { .pp-crypto-amount { padding-top: 5px; }.pp-crypto-amount > .pp-coin { display: none; }.pp-crypto-amount h1 { margin-top: 3px; }.pp-crypto-keypad .pp-key { height: 35px; }.pp-crypto-select { margin-top: 5px; padding: 5px 0; } }
+
+/* Savings shares the recording's surfaces, typography and controls. */
+:root, .dark { --savings-positive: var(--crypto-positive); --savings-progress: var(--pp-blue); }
+.pp-accounts .pp-savings-home { justify-content: flex-start; gap: 0; color: var(--foreground); font-size: inherit; text-align: left; font-weight: 400; white-space: normal; }
+.pp-accounts .pp-savings-home:hover { background: var(--card); }
+.pp-savings-home > small { font-size: 9px; color: var(--muted-foreground); margin-top: 4px; }
+.pp-savings-scroll { padding: 16px 20px 24px; }
+.pp-savings-summary { margin: 26px 0 23px; }
+.pp-savings-summary > div { display: flex; justify-content: space-between; align-items: center; }
+.pp-savings-summary p { margin: 0; font-size: 16px; }
+.pp-savings-summary h2 { font-size: 43px; line-height: 1.15; font-weight: 400; margin: 12px 0; overflow-wrap: anywhere; }
+.pp-savings-rate { display: flex; gap: 7px; color: var(--savings-positive); font-size: 14px; font-weight: 600; }
+.pp-savings-rate svg { width: 16px; height: 16px; }
+.pp-savings-summary > small { display: block; color: var(--muted-foreground); font-size: 10px; margin-top: 7px; }
+.pp-savings-interest { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 24px; }
+.pp-savings-interest > div { display: flex; flex-direction: column; gap: 8px; }
+.pp-savings-interest span { color: var(--muted-foreground); font-size: 12px; }
+.pp-savings-interest strong { font-size: 18px; font-weight: 400; }
+.pp-savings-buckets { margin-top: 24px; }
+.pp-savings-bucket.pp-plain { display: flex; width: 100%; min-height: 84px; gap: 14px; justify-content: flex-start; text-align: left; white-space: normal; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.pp-savings-symbol { width: 44px; height: 44px; border-radius: 50%; background: var(--secondary); color: var(--primary); display: grid; place-items: center; flex: 0 0 44px; }
+.pp-savings-symbol svg { width: 23px; height: 23px; }
+.pp-savings-bucket > span:nth-child(2) { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1; }
+.pp-savings-bucket strong { font-size: 16px; font-weight: 500; overflow-wrap: anywhere; }
+.pp-savings-bucket small { font-size: 13px; color: var(--muted-foreground); }
+.pp-savings-bucket > svg { color: var(--primary); }
+.pp-savings-bucket progress { width: 100%; height: 6px; accent-color: var(--savings-progress); }
+.pp-savings-section-title { display: flex; justify-content: space-between; align-items: center; margin: 28px 0 12px; }
+.pp-savings-section-title h2, .pp-savings-history h2 { font-size: 19px; font-weight: 600; margin: 0; }
+.pp-savings-section-title button, .pp-savings-link { color: var(--primary); }
+.pp-savings-link.pp-plain { gap: 10px; min-height: 45px; font-size: 14px; }
+.pp-savings-hint { font-size: 13px; color: var(--muted-foreground); margin: 10px 0; }
+.pp-savings-history { margin-top: 28px; }
+.pp-savings-history > div:not(.pp-savings-empty) { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.pp-savings-history > div > span { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.pp-savings-history strong { overflow-wrap: anywhere; }
+.pp-savings-history small { font-size: 11px; color: var(--muted-foreground); }
+.pp-savings-empty { color: var(--muted-foreground); display: flex; gap: 12px; align-items: center; padding: 24px 0; font-size: 13px; }
+.pp-savings-empty svg { width: 28px; height: 28px; }
+.pp-savings-legal { font-size: 11px; line-height: 1.6; color: var(--muted-foreground); margin: 24px 0 12px; }
+.pp-savings-detail, .pp-savings-form, .pp-savings-review { padding: 24px 20px; }
+.pp-savings-detail-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; }
+.pp-savings-detail-title h1 { font-size: 23px; font-weight: 500; overflow-wrap: anywhere; min-width: 0; }
+.pp-savings-detail-title button { font-size: 14px; color: var(--primary); }
+.pp-savings-large { font-size: 42px; line-height: 1.2; font-weight: 400; margin: 26px 0 12px; overflow-wrap: anywhere; }
+.pp-savings-detail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 28px 0 35px; }
+.pp-savings-detail-actions > button { min-height: 46px; font-size: 14px; }
+.pp-savings-detail-actions > button:last-child { border-radius: 26px; color: var(--primary); border-color: var(--primary); }
+.pp-savings-form h1, .pp-savings-review h1 { font-size: 25px; font-weight: 500; line-height: 1.3; margin-bottom: 28px; }
+.pp-savings-goal-art { width: 50px; height: 50px; color: var(--primary); margin-bottom: 24px; }
+.pp-savings-form label { display: flex; flex-direction: column; gap: 10px; margin: 24px 0; font-size: 14px; }
+.pp-savings-form input { width: 100%; min-width: 0; border: 1px solid var(--border); background: var(--card); color: var(--foreground); border-radius: 4px; padding: 14px; font-size: 16px; }
+.pp-savings-amount { text-align: center; padding: 18px 20px; }
+.pp-savings-amount h1 { font-size: 20px; font-weight: 400; line-height: 1.3; }
+.pp-savings-amount > p { font-size: 12px; color: var(--muted-foreground); }
+.pp-savings-select { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 20px; border-bottom: 1px solid var(--border); padding: 10px 0; text-align: left; font-size: 13px; }
+.pp-savings-select select { min-width: 0; max-width: 70%; padding: 7px; background: var(--background); color: var(--primary); border: 1px solid var(--border); border-radius: 4px; }
+.pp-savings-keypad .pp-keyboard { padding-bottom: 18px; }.pp-savings-keypad .pp-key { height: 40px; }
+.pp-savings-review .pp-savings-large { margin: 30px 0; text-align: center; }
+.pp-savings-review dl > div { display: flex; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--border); padding: 17px 0; font-size: 14px; }
+.pp-savings-review dd { text-align: right; overflow-wrap: anywhere; max-width: 65%; font-weight: 600; }
+.pp-savings-complete { flex: 1; min-height: 0; overflow-y: auto; text-align: center; padding: 55px 22px 20px; }
+.pp-savings-complete h1 { font-size: 25px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere; }
+.pp-savings-complete p, .pp-savings-complete small { font-size: 12px; color: var(--muted-foreground); margin-top: 15px; }
+.pp-savings-sheet { max-height: 75%; overflow-y: auto; border-radius: 8px 8px 0 0; }.pp-savings-sheet header { justify-content: space-between; gap: 10px; }.pp-savings-sheet h2 { font-size: 19px; }.pp-savings-sheet p { font-size: 14px; line-height: 1.6; margin-top: 20px; }
+@media (max-height: 650px) { .pp-savings-amount { padding-top: 8px; }.pp-savings-amount .pp-savings-large { margin-top: 12px; }.pp-savings-select { margin-top: 8px; padding: 5px 0; }.pp-savings-keypad .pp-key { height: 35px; } }
