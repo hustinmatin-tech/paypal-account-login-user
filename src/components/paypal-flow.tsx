@@ -6,9 +6,10 @@ import { FinancesContinuation } from "@/components/finances-continuation";
 import { TransferConfirmation, TransferMenu, TransferPreview, type DemoTransferReceipt } from "@/components/transfer-preview";
 import { CryptoFlow } from "@/components/crypto-flow";
 import { SavingsFlow } from "@/components/savings-flow";
+import { RewardsFlow } from "@/components/rewards-flow";
 import { emptySavings, savingsTotal } from "@/lib/savings-demo";
 
-type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer" | "debit-card" | "shipping" | "card-ordered" | "crypto" | "savings";
+type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer" | "debit-card" | "shipping" | "card-ordered" | "rewards" | "crypto" | "savings";
 const sampleCard = "5555555555554444";
 
 function PayPalMark({ colorful = false }: { colorful?: boolean }) {
@@ -48,6 +49,12 @@ export function PayPalFlow() {
   const [receiptDetails, setReceiptDetails] = useState(false);
   const financesScroll = useRef<HTMLDivElement>(null);
   const savedScroll = useRef(0);
+  const orderedScroll = useRef<HTMLDivElement>(null);
+  const savedOrderedScroll = useRef(0);
+  useEffect(() => {
+    if (screen === "card-ordered" && orderedScroll.current) orderedScroll.current.scrollTop = savedOrderedScroll.current;
+  }, [screen]);
+  const openRewards = () => { savedOrderedScroll.current = orderedScroll.current?.scrollTop ?? 0; setScreen("rewards"); };
   useEffect(() => {
     if (screen === "finances" && financesScroll.current) financesScroll.current.scrollTop = savedScroll.current;
   }, [screen, receiptDetails]);
@@ -105,7 +112,7 @@ export function PayPalFlow() {
   const cryptoNavigation = () => <footer className="pp-footer"><nav>{navigation.map(({ label, icon: Icon }) => <Button key={label} variant="plain" className={label === "Finances" ? "pp-nav-active" : ""} onClick={() => { if (label === "Home") setScreen("home"); if (label === "Finances") setScreen("finances"); }}><Icon/><span>{label}</span></Button>)}</nav></footer>;
   return <main className="pp-stage"><div className={`pp-app${screen === "crypto" || screen === "savings" ? " pp-crypto-app" : ""}`}>
     <div className="pp-demo-label">Demo · Sample card only · No real transactions</div>
-    {screen === "savings" ? <SavingsFlow savings={savings} balanceCents={balanceCents} onUpdate={(next, balance) => { setSavings(next); setBalanceCents(balance); }} onExit={() => setScreen("finances")} onCrypto={() => setScreen("crypto")} renderNavigation={cryptoNavigation}/> : screen === "crypto" ? <CryptoFlow onExit={() => setScreen("finances")} onSavings={() => setScreen("savings")} renderNavigation={cryptoNavigation}/> : receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setBalanceCents(previous => Math.max(0, previous - receipt.cents)); setScreen("finances"); }}/> : screen === "debit-card" ? <>
+    {screen === "rewards" ? <RewardsFlow onBack={() => setScreen("card-ordered")}/> : screen === "savings" ? <SavingsFlow savings={savings} balanceCents={balanceCents} onUpdate={(next, balance) => { setSavings(next); setBalanceCents(balance); }} onExit={() => setScreen("finances")} onCrypto={() => setScreen("crypto")} renderNavigation={cryptoNavigation}/> : screen === "crypto" ? <CryptoFlow onExit={() => setScreen("finances")} onSavings={() => setScreen("savings")} renderNavigation={cryptoNavigation}/> : receiptDetails && transferReceipt ? <TransferConfirmation receipt={transferReceipt} onDone={() => setReceiptDetails(false)}/> : screen === "transfer" ? <TransferPreview balanceCents={balanceCents} onClose={() => setScreen("finances")} onDone={receipt => { setTransferReceipt(receipt); setBalanceCents(previous => Math.max(0, previous - receipt.cents)); setScreen("finances"); }}/> : screen === "debit-card" ? <>
       <header className="pp-security-header pp-header-right"><span/><Button variant="plain" size="icon" aria-label="Close debit card offer" onClick={() => setScreen("finances")}><X/></Button></header>
       <div className="pp-scroll pp-promo-scroll">
         <div className="pp-promo-hero" aria-hidden="true"><div className="pp-promo-hills"/><div className="pp-promo-card"><div className="pp-debit pp-promo-debit"><div className="pp-debit-heading"><PayPalMark/><strong>Debit Card</strong></div><PayPalMark colorful/><div className="pp-debit-bottom"><span>Use your balance anywhere.</span><div className="pp-mastercard"><i/><i/></div></div></div></div></div>
@@ -123,12 +130,12 @@ export function PayPalFlow() {
       <div className="pp-complete-footer"><Button variant="paypal" onClick={() => setScreen("card-ordered")}>Confirm</Button></div>
     </> : screen === "card-ordered" ? <>
       <header className="pp-flow-header"><Button variant="plain" size="icon" aria-label="Back" onClick={() => setScreen("finances")}><ArrowLeft/></Button><span>PayPal Debit Card</span></header>
-      <div className="pp-scroll pp-ordered">
+      <div className="pp-scroll pp-ordered" ref={orderedScroll}>
         <div className="pp-ordered-card"><div className="pp-debit-heading"><PayPalMark/><small>Debit Card</small></div><span className="pp-ordered-badge">Ordered</span><strong>${balance}</strong><p>Available PayPal balance</p><PayPalMark colorful/><div className="pp-ordered-bottom"><span>◉ •• 2593</span><div className="pp-mastercard"><i/><i/></div></div></div>
         <div className="pp-ordered-note"><strong>Card ordered</strong><p>We’ll email you when it ships. You can use your digital PayPal Debit Card to shop now.</p><small>Demo only · No card was actually ordered</small></div>
         <Button variant="paypal" onClick={openAmount}>Add Money</Button>
-        <div className="pp-offers"><div><h2>New cash back offers</h2><p>Start getting cash back at your favorite places. Terms Apply.</p><span className="pp-deposit-link">Explore offers</span></div><span className="pp-offer-art" aria-hidden="true"><Gift/></span></div>
-        <p className="pp-rewards-link">About PayPal Rewards</p>
+        <div className="pp-offers"><div><h2>New cash back offers</h2><p>Start getting cash back at your favorite places. Terms Apply.</p><Button variant="plain" className="pp-deposit-link" onClick={openRewards}>Explore offers</Button></div><span className="pp-offer-art" aria-hidden="true"><Gift/></span></div>
+        <Button variant="plain" className="pp-rewards-link" onClick={openRewards}>About PayPal Rewards</Button>
         <div className="pp-ordered-tabs"><span className="active">Activity</span><span>Manage</span></div>
         <div className="pp-keep-track"><span aria-hidden="true"><ReceiptText/></span><div><strong>Keep track easily</strong><p>New transactions will pop up here</p></div></div>
       </div>
@@ -188,6 +195,6 @@ export function PayPalFlow() {
     </>}
     {transferMenu && screen === "finances" && <TransferMenu onClose={() => setTransferMenu(false)} onBank={() => { setTransferMenu(false); setScreen("transfer"); }}/>}
     {transferReceipt && screen === "finances" && !receiptDetails && <><div className="pp-overlay"/><section className="pp-transfer-alert" role="alertdialog" aria-modal="true" aria-labelledby="pp-transfer-alert-title"><h2 id="pp-transfer-alert-title">PayPal</h2><p>You transferred ${(transferReceipt.cents / 100).toFixed(2)} USD to {transferReceipt.destination === "capital" ? "CAPITAL ONE N.A. (1200)" : transferReceipt.destination === "mastercard" ? "Mastercard Debit (4444)" : "SUTTON BANK (0000)"}. It arrived instantly.</p><small>Demo only · No money moved</small><div><Button variant="plain" onClick={() => setTransferReceipt(null)}>Done</Button><Button variant="plain" onClick={() => setReceiptDetails(true)}>View Details</Button></div></section></>}
-    {screen !== "crypto" && screen !== "savings" && <div className={`pp-assistive ${screen === "amount" || screen === "link" ? "pp-assistive-keyboard" : ""}`} aria-hidden="true"><i/></div>}
+    {screen !== "crypto" && screen !== "savings" && screen !== "rewards" && <div className={`pp-assistive ${screen === "amount" || screen === "link" ? "pp-assistive-keyboard" : ""}`} aria-hidden="true"><i/></div>}
   </div></main>;
 }

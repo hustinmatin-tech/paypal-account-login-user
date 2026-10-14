@@ -518,3 +518,62 @@ img, svg { max-width: 100%; }
 .pp-app input, .pp-app select, .pp-app textarea { font-size: max(16px, 1em); }
 @media (min-width: 600px) { .pp-app { height: min(900px, calc(100dvh - 40px)); max-width: 430px; padding-top: 0; padding-bottom: 0; } }
 @media (min-width: 600px) and (max-height: 700px) { .pp-stage { padding: 0; } .pp-app { height: 100dvh; border-radius: 0; } }
+
+/* Rewards continuation: recorded samples, not live merchant promotions. */
+:root, .dark {
+  --reward-header: oklch(0.53 0.2 258);
+  --reward-header-foreground: oklch(1 0 0);
+  --reward-trophy-halo: oklch(0.7 0.12 230);
+  --reward-home-depot: oklch(0.7 0.2 48);
+  --reward-target: oklch(0.5 0.21 24);
+  --reward-orvis: oklch(0.36 0.08 156);
+  --reward-panera: oklch(0.5 0.13 112);
+  --reward-wordmark: oklch(0.4 0.04 270);
+}
+.pp-reward-header { background: var(--reward-header); color: var(--reward-header-foreground); }
+.pp-reward-scroll { padding: 0; min-height: 0; overscroll-behavior: contain; }
+.pp-reward-banner { height: 108px; background: var(--reward-header); display: grid; place-items: center; }
+.pp-reward-banner > span { position: relative; width: 66px; height: 66px; border-radius: 50%; background: var(--reward-trophy-halo); display: grid; place-items: center; }
+.pp-reward-banner svg { width: 47px; height: 47px; color: var(--reward-header-foreground); fill: var(--pp-gold); stroke-width: 2.5; }
+.pp-reward-banner i { position: absolute; bottom: -3px; width: 31px; height: 6px; border-radius: 50%; background: var(--primary); }
+.pp-reward-tabs { display: grid; grid-template-columns: 1fr 1fr; margin: 15px 14px 22px; background: var(--secondary); border-radius: 24px; padding: 3px; }
+.pp-reward-tabs > button { min-height: 37px; border-radius: 24px; font-size: 13px; font-weight: 600; color: var(--muted-foreground); }
+.pp-reward-tabs > [aria-selected="true"] { background: var(--card); color: var(--foreground); }
+.pp-reward-content { padding: 0 14px 25px; }
+.pp-reward-content h1 { margin: 0 0 12px; font-size: 25px; line-height: 1.22; font-weight: 600; }
+.pp-reward-intro { margin: 0 0 24px; font-size: 16px; line-height: 1.35; color: var(--muted-foreground); }
+.pp-reward-list { display: grid; gap: 9px; }
+.pp-reward-offer { display: grid; grid-template-columns: 46px minmax(0, 1fr) 40px; gap: 14px; align-items: center; padding: 16px 12px; min-height: 99px; border-radius: 7px; background: var(--card); box-shadow: var(--pp-shadow); }
+.pp-reward-offer h2 { margin: 0 0 4px; font-size: 12px; line-height: 1.3; font-weight: 400; color: var(--muted-foreground); overflow-wrap: anywhere; }
+.pp-reward-offer strong { display: block; font-size: 16px; line-height: 1.3; font-weight: 500; }
+.pp-reward-offer small { display: flex; align-items: center; gap: 5px; margin-top: 4px; font-size: 11px; line-height: 1.3; color: var(--muted-foreground); }
+.pp-reward-offer small svg { width: 11px; height: 11px; color: var(--foreground); }
+.pp-reward-save.pp-plain { width: 40px; height: 40px; border-radius: 50%; background: var(--background); color: var(--foreground); }
+.pp-reward-save.pp-plain svg { width: 19px; height: 19px; }
+.pp-reward-save[aria-pressed="true"] { color: var(--primary); }
+.pp-reward-logo { width: 46px; height: 46px; display: grid; place-items: center; flex-shrink: 0; }
+.pp-reward-logo svg { width: 46px; height: 46px; }
+.pp-reward-logo-home-depot, .pp-reward-logo-orvis, .pp-reward-logo-gas, .pp-reward-logo-panera { border-radius: 50%; color: var(--reward-header-foreground); }
+.pp-reward-logo-home-depot { background: var(--reward-home-depot); }
+.pp-reward-depot { font-size: 9px; font-weight: 800; line-height: .95; transform: rotate(-15deg); text-align: center; }
+.pp-reward-logo-target, .pp-reward-logo-safeway { color: var(--reward-target); }
+.pp-reward-logo-paper { fill: var(--card); }
+.pp-reward-logo-orvis { background: var(--reward-orvis); }
+.pp-reward-wordmark { font-size: 9px; font-weight: 700; }
+.pp-reward-fineprint { font-size: 5px; color: var(--reward-wordmark); font-weight: 700; }
+.pp-reward-safeway { font-family: Arial, sans-serif; font-size: 48px; font-weight: 800; font-style: italic; line-height: 1; }
+.pp-reward-kroger { font-size: 12px; font-weight: 700; color: var(--reward-wordmark); }
+.pp-reward-logo-gas { background: var(--primary); }
+.pp-reward-logo-gas svg { width: 27px; height: 27px; }
+.pp-reward-logo-panera { background: var(--reward-panera); }
+.pp-reward-panera { display: flex; flex-direction: column; align-items: center; font-size: 8px; font-weight: 600; }
+.pp-reward-panera svg { width: 29px; height: 22px; color: var(--pp-gold); }
+.pp-reward-bread-cut { stroke: var(--reward-panera); fill: none; stroke-width: 2; }
+.pp-reward-legal, .pp-reward-demo { font-size: 11px; line-height: 1.5; color: var(--muted-foreground); margin: 25px 0 0; }
+.pp-reward-legal button { color: var(--pp-blue); font-size: inherit; display: inline; white-space: normal; text-align: left; }
+.pp-reward-demo { margin-top: 12px; }
+.pp-reward-empty { padding: 40px 0; text-align: center; color: var(--muted-foreground); font-size: 14px; }
+.pp-reward-empty svg { margin: 0 auto 15px; }
+.pp-reward-terms header { justify-content: space-between; }
+.pp-reward-terms h2 { font-size: 20px; }
+.pp-reward-terms p { margin-top: 20px; font-size: 14px; line-height: 1.5; }
