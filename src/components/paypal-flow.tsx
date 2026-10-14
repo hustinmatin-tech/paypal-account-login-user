@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Landmark, Check, ChevronRight } from "lucide-react";
+import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Landmark, Check, ChevronRight, ReceiptText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FundingArt } from "@/components/funding-art";
 import { FinancesContinuation } from "@/components/finances-continuation";
@@ -112,10 +112,10 @@ export function PayPalFlow() {
         <div className="pp-ordered-card"><div className="pp-debit-heading"><PayPalMark/><small>Debit Card</small></div><span className="pp-ordered-badge">Ordered</span><strong>${balance}</strong><p>Available PayPal balance</p><PayPalMark colorful/><div className="pp-ordered-bottom"><span>◉ •• 2593</span><div className="pp-mastercard"><i/><i/></div></div></div>
         <div className="pp-ordered-note"><strong>Card ordered</strong><p>We’ll email you when it ships. You can use your digital PayPal Debit Card to shop now.</p><small>Demo only · No card was actually ordered</small></div>
         <Button variant="paypal" onClick={openAmount}>Add Money</Button>
-        <div className="pp-offers"><div><h2>New cash back offers</h2><p>Start getting cash back at your favorite places. Terms Apply.</p><span className="pp-deposit-link">Explore offers</span></div><span className="pp-offer-art" aria-hidden="true">🎁</span></div>
+        <div className="pp-offers"><div><h2>New cash back offers</h2><p>Start getting cash back at your favorite places. Terms Apply.</p><span className="pp-deposit-link">Explore offers</span></div><span className="pp-offer-art" aria-hidden="true"><Gift/></span></div>
         <p className="pp-rewards-link">About PayPal Rewards</p>
         <div className="pp-ordered-tabs"><span className="active">Activity</span><span>Manage</span></div>
-        <div className="pp-keep-track"><span aria-hidden="true">🧾</span><div><strong>Keep track easily</strong><p>New transactions will pop up here</p></div></div>
+        <div className="pp-keep-track"><span aria-hidden="true"><ReceiptText/></span><div><strong>Keep track easily</strong><p>New transactions will pop up here</p></div></div>
       </div>
     </> : screen === "complete" ? <>
       <section className="pp-money-complete" aria-live="polite"><div className="pp-confirmation-check" aria-hidden="true"><Check/></div><h1>You added ${Number(amount).toFixed(2)} to<br/>your balance</h1><p>Demo balance only · No money moved</p></section>

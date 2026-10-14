@@ -377,3 +377,4 @@
 .pp-ordered-tabs .active { background: var(--background); color: var(--foreground); }
 .pp-keep-track { display: flex; gap: 14px; align-items: center; }
 .pp-keep-track > span { font-size: 30px; }
+.pp-ordered > * { flex-shrink: 0; } .pp-offer-art svg, .pp-keep-track > span svg { width: 40px; height: 40px; color: var(--pp-link, var(--primary)); }
