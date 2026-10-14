@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Banknote, ChartNoAxesColumnIncreasing, House, Wallet, Gift, Trophy, ScanLine, X, Plus, Delete, Landmark, Check, ChevronRight, ReceiptText } from "lucide-react";
+import { ArrowLeft, ChartNoAxesColumnIncreasing, House, Trophy, ScanLine, X, Plus, Delete, Landmark, Check, ChevronRight, ReceiptText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FundingArt } from "@/components/funding-art";
 import { FinancesContinuation } from "@/components/finances-continuation";
