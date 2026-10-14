@@ -14,17 +14,11 @@ function PayPalMark({ colorful = false }: { colorful?: boolean }) {
 
 function BankLogo() { return <span className="pp-bank-logo" aria-hidden="true">BANK</span>; }
 
-function PaymentsIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 4v16"/><path d="M15.5 7.2c-.8-1.3-2-2-3.5-2-2.1 0-3.7 1.3-3.7 3.1 0 1.7 1.4 2.5 3.7 3 2.4.5 3.7 1.5 3.7 3.2 0 1.9-1.6 3.2-3.7 3.2-1.6 0-3-.8-3.8-2.3"/><path d="M4 6.5 2.8 5.2 1.6 6.5"/><path d="M2.8 5.2v3.3"/><path d="M20 17.5l1.2 1.3 1.2-1.3"/><path d="M21.2 15.5v3.3"/></svg>;
-}
-function DealsIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12.6 2.6 21 11a2 2 0 0 1 0 2.8l-7.2 7.2a2 2 0 0 1-2.8 0L2.6 12.6A2 2 0 0 1 2 11.2V4a2 2 0 0 1 2-2h7.2a2 2 0 0 1 1.4.6z"/><circle cx="7.5" cy="7.5" r="1.4" fill="currentColor" stroke="none"/></svg>;
-}
-function WalletIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M6 5h12"/><path d="M8 2h8"/></svg>;
+function NavIcon({ src }: { src: string }) {
+  return <img src={src} alt="" aria-hidden="true" className="pp-nav-img"/>;
 }
 
-const navigation = [{ label: "Home", icon: House }, { label: "Finances", icon: ChartNoAxesColumnIncreasing }, { label: "Payments", icon: PaymentsIcon }, { label: "Deals", icon: DealsIcon }, { label: "Wallet", icon: WalletIcon }];
+const navigation = [{ label: "Home", icon: "/icons/nav-home.png" }, { label: "Finances", icon: "/icons/nav-finances.png" }, { label: "Payments", icon: "/icons/nav-payments.png" }, { label: "Deals", icon: "/icons/nav-deals.png" }, { label: "Wallet", icon: "/icons/nav-wallet.png" }];
 
 export function PayPalFlow() {
   const [screen, setScreen] = useState<Screen>("home");
