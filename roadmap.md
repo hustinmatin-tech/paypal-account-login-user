@@ -11,3 +11,6 @@
 - [x] Verify the $15 confirmation, notice dismissal, restored scroll, and unchanged demo balance.
 - [x] Add the recorded transfer pop-up on Finances with arrival date, and deduct the demo transfer from the in-memory balance.
 - [x] Add the recorded PayPal Debit Card offer screen from "Get a PayPal Debit Card", demo-only.
+- [ ] Research the 2025 PayPal crypto flow and document reference limits.
+- [ ] Add the Crypto overview, asset details, and clearly labeled simulated transaction steps.
+- [ ] Verify crypto navigation, preview completion, and existing flow regression tests.
