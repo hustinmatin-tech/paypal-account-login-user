@@ -21,3 +21,5 @@
 - [x] Verify Rewards entry, scrolling, return navigation, and device fit.
 - [x] Restore the new recording’s card-to-Finances return and completed demo transfer activity.
 - [x] Verify activity survives notice dismissal and card navigation, and resets on reload.
+- [x] Add the recorded "Add cash at a store" screen with sample stores, fees, and limits as a demo.
+- [x] Verify store list entry from Finances, demo notices, and return navigation.
