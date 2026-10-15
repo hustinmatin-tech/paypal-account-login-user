@@ -18,7 +18,7 @@ export function FinancesContinuation({ addedCents, completedTransfer, onTransfer
     </section>
     <section className="pp-finance-options" aria-labelledby="pp-options-title">
       <h2 id="pp-options-title">More options</h2>
-      <ul>{options.map(({ title, detail, icon: Icon }) => <li key={title}>{title === "Transfer" ? <Button variant="plain" className="pp-finance-transfer" onClick={onTransfer}><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></Button> : <><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></>}</li>)}</ul>
+      <ul>{options.map(({ title, detail, icon: Icon }) => <li key={title}>{title === "Transfer" || title === "Add cash at stores" ? <Button variant="plain" className="pp-finance-transfer" onClick={title === "Transfer" ? onTransfer : onAddCash}><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></Button> : <><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></>}</li>)}</ul>
     </section>
     <section className="pp-finance-activity" aria-labelledby="pp-finance-activity-title">
       <h2 id="pp-finance-activity-title">Recent activity</h2>
