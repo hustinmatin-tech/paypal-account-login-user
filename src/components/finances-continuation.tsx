@@ -9,7 +9,7 @@ const options = [
   { title: "Transfer", detail: "From your balance", icon: ArrowRightLeft },
 ];
 
-export function FinancesContinuation({ addedCents, completedTransfer, onTransfer }: { addedCents: number | null; completedTransfer: DemoTransferReceipt | null; onTransfer: () => void }) {
+export function FinancesContinuation({ addedCents, completedTransfer, onTransfer, onAddCash }: { addedCents: number | null; completedTransfer: DemoTransferReceipt | null; onTransfer: () => void; onAddCash: () => void }) {
   return <>
     <section className="pp-tax">
       <div className="pp-tax-copy"><strong>Get your federal tax<br/>refund up to 5 days early*</strong><p>Use PayPal Direct Deposit for<br/>your tax refund.</p></div>
@@ -18,7 +18,7 @@ export function FinancesContinuation({ addedCents, completedTransfer, onTransfer
     </section>
     <section className="pp-finance-options" aria-labelledby="pp-options-title">
       <h2 id="pp-options-title">More options</h2>
-      <ul>{options.map(({ title, detail, icon: Icon }) => <li key={title}>{title === "Transfer" ? <Button variant="plain" className="pp-finance-transfer" onClick={onTransfer}><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></Button> : <><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></>}</li>)}</ul>
+      <ul>{options.map(({ title, detail, icon: Icon }) => <li key={title}>{title === "Transfer" || title === "Add cash at stores" ? <Button variant="plain" className="pp-finance-transfer" onClick={title === "Transfer" ? onTransfer : onAddCash}><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></Button> : <><Icon aria-hidden="true"/><div><span>{title}</span><small>{detail}</small></div></>}</li>)}</ul>
     </section>
     <section className="pp-finance-activity" aria-labelledby="pp-finance-activity-title">
       <h2 id="pp-finance-activity-title">Recent activity</h2>
