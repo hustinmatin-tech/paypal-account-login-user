@@ -9,7 +9,7 @@ const options = [
   { title: "Transfer", detail: "From your balance", icon: ArrowRightLeft },
 ];
 
-export function FinancesContinuation({ addedCents, completedTransfer, onTransfer }: { addedCents: number | null; completedTransfer: DemoTransferReceipt | null; onTransfer: () => void }) {
+export function FinancesContinuation({ addedCents, completedTransfer, onTransfer, onAddCash }: { addedCents: number | null; completedTransfer: DemoTransferReceipt | null; onTransfer: () => void; onAddCash: () => void }) {
   return <>
     <section className="pp-tax">
       <div className="pp-tax-copy"><strong>Get your federal tax<br/>refund up to 5 days early*</strong><p>Use PayPal Direct Deposit for<br/>your tax refund.</p></div>

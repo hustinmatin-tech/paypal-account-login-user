@@ -7,9 +7,10 @@ import { TransferConfirmation, TransferMenu, TransferPreview, type DemoTransferR
 import { CryptoFlow } from "@/components/crypto-flow";
 import { SavingsFlow } from "@/components/savings-flow";
 import { RewardsFlow } from "@/components/rewards-flow";
+import { AddCashStores } from "@/components/add-cash-stores";
 import { emptySavings, savingsTotal } from "@/lib/savings-demo";
 
-type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer" | "debit-card" | "shipping" | "card-ordered" | "rewards" | "crypto" | "savings";
+type Screen = "home" | "finances" | "amount" | "methods" | "link" | "card-summary" | "security" | "confirmed" | "complete" | "transfer" | "debit-card" | "shipping" | "card-ordered" | "rewards" | "crypto" | "savings" | "add-cash";
 const sampleCard = "5555555555554444";
 
 function PayPalMark({ colorful = false }: { colorful?: boolean }) {
@@ -182,7 +183,7 @@ export function PayPalFlow() {
           <div className="pp-debit"><div className="pp-debit-heading"><PayPalMark/><strong>Debit Card</strong></div><PayPalMark colorful/><div className="pp-debit-bottom"><span>Use your balance anywhere.</span><div className="pp-mastercard"><i/><i/></div></div></div>
           <Button variant="yellow" onClick={() => { savedScroll.current = financesScroll.current?.scrollTop ?? 0; setScreen("debit-card"); }}>Get a PayPal Debit Card</Button>
           </>}
-            <FinancesContinuation addedCents={addedCents} completedTransfer={completedTransfer} onTransfer={() => { savedScroll.current = financesScroll.current?.scrollTop ?? 0; setTransferMenu(true); }}/>
+            <FinancesContinuation addedCents={addedCents} completedTransfer={completedTransfer} onTransfer={() => { savedScroll.current = financesScroll.current?.scrollTop ?? 0; setTransferMenu(true); }} onAddCash={() => { savedScroll.current = financesScroll.current?.scrollTop ?? 0; setScreen("add-cash"); }}/>
         </>}
       </div>
       <footer className="pp-footer">{screen === "home" && <div className="pp-send-actions"><Button variant="yellow">Send</Button><Button variant="yellow">Request</Button></div>}<nav>{navigation.map(({label, icon: Icon}) => <Button key={label} variant="plain" className={(screen === "home" && label === "Home") || (screen === "finances" && label === "Finances") ? "pp-nav-active" : ""} onClick={() => { if(label === "Home") setScreen("home"); if(label === "Finances") setScreen("finances"); }}><Icon/><span>{label}</span></Button>)}</nav></footer>
