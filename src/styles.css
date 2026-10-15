@@ -577,3 +577,42 @@ img, svg { max-width: 100%; }
 .pp-reward-terms header { justify-content: space-between; }
 .pp-reward-terms h2 { font-size: 20px; }
 .pp-reward-terms p { margin-top: 20px; font-size: 14px; line-height: 1.5; }
+
+/* Ordered debit card row on Finances (recorded continuation) */
+.pp-debit-ordered {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  margin-top: 12px;
+  background: var(--pp-card, #fff);
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
+  text-align: left;
+}
+.pp-debit-ordered-art {
+  width: 44px;
+  height: 30px;
+  border-radius: 6px;
+  background: var(--pp-blue, #002B93);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.pp-debit-ordered-art svg { width: 18px; height: 18px; }
+.pp-debit-ordered-text { display: flex; flex-direction: column; gap: 4px; }
+.pp-debit-ordered-text strong { font-size: 15px; color: var(--pp-ink, #001c64); }
+.pp-debit-ordered-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  align-self: flex-start;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #1a7f37;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+.pp-debit-ordered-badge svg { width: 12px; height: 12px; }
